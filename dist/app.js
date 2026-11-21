@@ -243,3 +243,15 @@ document.getElementById('calculator-reset').addEventListener('click', () => {
 });
 
 renderCalculator();
+
+const videoDialog = document.getElementById('video-dialog');
+const presentationVideo = document.getElementById('presentation-video');
+document.querySelector('[data-open-video]').addEventListener('click', () => {
+  videoDialog.showModal();
+  presentationVideo.play().catch(() => {});
+});
+document.querySelector('[data-close-video]').addEventListener('click', () => videoDialog.close());
+videoDialog.addEventListener('click', (event) => {
+  if (event.target === videoDialog) videoDialog.close();
+});
+videoDialog.addEventListener('close', () => presentationVideo.pause());

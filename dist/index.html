@@ -43,6 +43,7 @@
             <p class="hero-lead">Uma leitura clara dos impactos da CBS e do IBS nas cinco empresas do grupo, com os números essenciais à vista e o detalhe a um clique.</p>
             <div class="hero-actions">
               <a class="button button-gold" href="#visao-geral">Ver os resultados</a>
+              <button class="button button-outline button-play" type="button" data-open-video><span class="play-icon" aria-hidden="true"></span>Assistir à apresentação</button>
               <a class="button button-outline" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Abrir PDF completo</a>
             </div>
             <div class="hero-context"><span class="context-dot" aria-hidden="true"></span> Dados reais: out/2025 a set/2026 <span class="context-separator" aria-hidden="true">·</span> Projeções: 2027 a 2033</div>
@@ -75,7 +76,7 @@
           <div class="metric-item"><span class="metric-number">5</span><span class="metric-label">empresas no diagnóstico</span></div>
           <div class="metric-item"><span class="metric-number">R$ 124,91 mi</span><span class="metric-label">receita bruta consolidada*</span></div>
           <div class="metric-item"><span class="metric-number">R$ 83,31 mi</span><span class="metric-label">compras com crédito de PIS/COFINS</span></div>
-          <div class="metric-item"><span class="metric-number">R$ 5,45 mi</span><span class="metric-label">parcelas nominais do PRODEC</span></div>
+          <a class="metric-item metric-link" href="prodec.html"><span class="metric-number">R$ 5,45 mi</span><span class="metric-label">parcelas nominais do PRODEC</span><span class="metric-go">Entender a conta →</span></a>
         </div>
       </section>
 
@@ -98,7 +99,7 @@
               <p class="card-overline">PRESSÃO DE CAIXA</p>
               <h3>O PRODEC exige planejamento além da carga do ano.</h3>
               <p>As parcelas começam em julho de 2027 e somam cerca de R$ 5,45 mi até abril de 2030. O maior desembolso anual projetado ocorre em 2029.</p>
-              <a href="#caixa">Ver fluxo de caixa</a>
+              <a href="prodec.html">Entender a conta do PRODEC</a>
             </article>
             <article class="insight-card third">
               <div class="card-top"><span class="card-index">03</span><span class="card-icon" aria-hidden="true">✳</span></div>
@@ -187,7 +188,7 @@
       <section class="section cash-section" id="caixa" aria-labelledby="cash-title">
         <div class="container cash-grid">
           <div class="cash-copy"><p class="eyebrow light">O PONTO DE ATENÇÃO</p><h2 id="cash-title">Menos tributo não significa menos saída de caixa.</h2><p>O ICMS postergado pelo PRODEC volta a ser pago entre 2027 e 2030. Essas parcelas ficam fora da carga tributária projetada, mas entram no desembolso financeiro.</p><a class="button button-gold cash-cta" href="prodec.html">Entender a conta do PRODEC <span aria-hidden="true">→</span></a></div>
-          <div class="cash-panel"><div class="cash-panel-head"><span>PARCELAS DO PRODEC</span><strong>R$ 5,45 mi</strong></div><div class="cash-timeline"><div><span class="timeline-year">2027</span><span class="timeline-bar" style="--bar:46%"></span><strong>R$ 979 mil</strong></div><div><span class="timeline-year">2028</span><span class="timeline-bar" style="--bar:78%"></span><strong>R$ 1,66 mi</strong></div><div><span class="timeline-year">2029</span><span class="timeline-bar" style="--bar:100%"></span><strong>R$ 2,12 mi</strong></div><div><span class="timeline-year">2030</span><span class="timeline-bar" style="--bar:32%"></span><strong>R$ 684 mil</strong></div></div><div class="cash-callout"><span>MAIOR DESEMBOLSO ANUAL PROJETADO</span><strong>R$ 8.194.364,49 <small>em 2029</small></strong></div><p>O controle totaliza R$ 5.446.964,21 em parcelas nominais; o saldo contábil em 30/09/2026 é R$ 5.446.931,09. Confirmar eventual correção ou juros no termo do benefício.</p></div>
+          <div class="cash-panel"><div class="cash-panel-head"><span>PARCELAS DO PRODEC</span><strong>R$ 5,45 mi</strong></div><div class="cash-timeline"><div><span class="timeline-year">2027</span><span class="timeline-bar" style="--bar:46%"></span><strong>R$ 979 mil</strong></div><div><span class="timeline-year">2028</span><span class="timeline-bar" style="--bar:78%"></span><strong>R$ 1,66 mi</strong></div><div><span class="timeline-year">2029</span><span class="timeline-bar" style="--bar:100%"></span><strong>R$ 2,12 mi</strong></div><div><span class="timeline-year">2030</span><span class="timeline-bar" style="--bar:32%"></span><strong>R$ 684 mil</strong></div></div><div class="cash-callout"><span>MAIOR DESEMBOLSO ANUAL PROJETADO</span><strong>R$ 8.194.364,49 <small>em 2029</small></strong></div><p>O controle totaliza R$ 5.446.964,21 em parcelas nominais; o saldo contábil em 30/09/2026 é R$ 5.446.931,09. Confirmar eventual correção ou juros no termo do benefício.</p><a class="cash-panel-link" href="prodec.html">Ver a conta completa, ano a ano e mês a mês <span aria-hidden="true">→</span></a></div>
         </div>
       </section>
 
@@ -220,6 +221,11 @@
 
       <section class="closing-section"><div class="container closing-grid"><div><p class="eyebrow light">REFORMA SOB CONTROLE</p><h2>Informação para decidir.<br /><em>Clareza para agir.</em></h2></div><div><p>O diagnóstico completo reúne as tabelas, as fontes e os próximos passos para conduzir a transição com segurança.</p><a class="button button-gold" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Ler diagnóstico completo</a></div></div></section>
     </main>
+
+    <dialog class="video-dialog" id="video-dialog" aria-label="Apresentação do diagnóstico em vídeo">
+      <button class="video-close" type="button" data-close-video>Fechar ✕</button>
+      <video id="presentation-video" controls playsinline preload="none" poster="assets/apresentacao-capa.jpg"><source src="assets/apresentacao.mp4" type="video/mp4" />Seu navegador não reproduz este vídeo. <a href="assets/apresentacao.mp4">Baixar o vídeo</a>.</video>
+    </dialog>
 
     <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Conteúdo baseado no relatório corrigido de 23 páginas. Dados disponíveis até 19/11/2026. As projeções são instrumentos de planejamento e devem ser atualizadas conforme a regulamentação.</p></div><a href="#inicio">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
   </body>
