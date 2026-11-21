@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1914" />
+    <meta name="description" content="Consulta dos produtos da Guimarães por código, descrição ou NCM: alíquotas de IBS e CBS, reduções, fundamentos legais, alertas e itens que precisam de revisão." />
+    <title>Produtos e classificação tributária | Diagnóstico Tributário Grupo Guimarães — França O Meu Contador</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plano.css" />
+    <link rel="stylesheet" href="consulta.css" />
+    <script defer src="consulta-ui.js"></script>
+    <script defer src="produtos-data.js"></script>
+    <script defer src="produtos.js"></script>
+  </head>
+  <body class="subpage">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="França O Meu Contador — início">
+          <img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" />
+        </a>
+        <nav class="primary-nav sub-nav" aria-label="Navegação principal">
+          <a class="nav-report" href="index.html#consultas">← Voltar ao diagnóstico</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="sub-hero" aria-labelledby="sub-title">
+        <div class="container">
+          <nav class="consulta-tabs" aria-label="Consultas">
+            <a href="produtos.html" aria-current="page">Produtos</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="fornecedores.html">Fornecedores</a>
+          </nav>
+          <p class="eyebrow light"><span class="eyebrow-line"></span> Consulta em lote · Seção 4 do diagnóstico</p>
+          <h1 id="sub-title">Cada produto, <em>sua tributação.</em></h1>
+          <p class="sub-lead">Procure pelo código, pela descrição ou pelo NCM e veja as alíquotas de IBS e CBS de 2026 a 2033, as reduções, o fundamento legal e os alertas. Os itens que dependem de confirmação da equipe fiscal aparecem marcados.</p>
+          <div class="sub-metrics four">
+            <div><span id="m-total">2.829</span><small>produtos consultados</small></div>
+            <div><span id="m-ncm">754</span><small>NCMs diferentes</small></div>
+            <div><span id="m-alta">78</span><small>prioridade alta, já apontados no diagnóstico</small></div>
+            <div><span id="m-media">248</span><small>com enquadramento a validar</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section" aria-labelledby="panorama-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">PANORAMA</p><h2 id="panorama-title">Onde está o trabalho de revisão</h2></div>
+            <p>A maior parte do catálogo segue a regra geral. A revisão se concentra nos itens em que o NCM abre a possibilidade de um tratamento diferente. Toque em uma faixa ou cartão para filtrar a lista.</p>
+          </div>
+          <div class="c-grid">
+            <div class="c-card">
+              <span class="c-kicker">Situação de revisão</span>
+              <h3>2.829 produtos por prioridade</h3>
+              <p class="c-sub">Prioridade alta: itens que o diagnóstico já identificou com NCM ou cClassTrib a corrigir. A validar: o NCM aparece em algum anexo de benefício e a descrição precisa ser conferida.</p>
+              <div class="stack" id="stack-status"></div>
+              <ul class="legend" id="legend-status"></ul>
+              <div class="kpis" id="kpis-alt" style="margin-top:22px"></div>
+            </div>
+            <div class="c-card">
+              <span class="c-kicker">Alíquota de IBS + CBS por ano</span>
+              <h3>Regra geral e redução de 60%</h3>
+              <p class="c-sub">Valores devolvidos pela consulta em lote, iguais para todos os itens de cada grupo.</p>
+              <div class="chart-legend" id="rates-legend"></div>
+              <div class="bars" id="rates-chart"></div>
+              <div class="bars-x" id="rates-axis"></div>
+              <p class="c-note">A consulta usa CBS de 9,21% a partir de 2028 e IBS de 17,7% em 2033 (26,91% no total). O diagnóstico usa a referência do TCU, de 11,3% de CBS (29,0% em 2033). A alíquota definitiva ainda depende do Senado.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section alt" id="consulta" aria-labelledby="consulta-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">CONSULTA</p><h2 id="consulta-title">Encontre um produto</h2></div>
+            <p>Origem SC, destinos PR, RS, SC e SP, como na planilha enviada. O ano escolhido muda as alíquotas mostradas na lista e no detalhe.</p>
+          </div>
+          <div class="finder">
+            <div>
+              <div class="finder-tools">
+                <label class="search"><span class="sr-only">Buscar por código, descrição ou NCM</span><input id="q" type="search" placeholder="Código, descrição ou NCM (ex.: 1723, desinfetante, 3808.94)" autocomplete="off" /></label>
+                <label><span class="sr-only">Filtro</span><select class="select" id="filtro">
+                  <option value="todos">Todos os produtos</option>
+                  <option value="revisar">Precisam de revisão</option>
+                  <option value="alta">Prioridade alta</option>
+                  <option value="media">A validar</option>
+                  <option value="ok">Regra geral, sem pendência</option>
+                  <option value="pendentes">Revisão pendente neste navegador</option>
+                  <option value="revisados">Já revisados neste navegador</option>
+                  <option value="cst:200-60">Possível redução de 60%</option>
+                  <option value="cst:200-100">Possível alíquota zero</option>
+                  <option value="cst:410">Possível imunidade (CST 410)</option>
+                  <option value="cst:515">Diferimento (CST 515)</option>
+                  <option value="cst:550">Suspensão (CST 550)</option>
+                  <option value="imunidade">Imunidade de ICMS/CF por destino</option>
+                  <option value="gtin">Exige GTIN na NF-e</option>
+                  <option value="destinacao">Muda conforme o comprador</option>
+                </select></label>
+                <label><span class="sr-only">Ano</span><select class="select" id="ano"></select></label>
+              </div>
+              <div class="finder-count"><span id="count" aria-live="polite"></span><button type="button" class="link-button" id="export">Exportar lista (CSV)</button></div>
+              <ul class="results" id="results"></ul>
+              <button type="button" class="link-button more" id="more" hidden>Mostrar mais</button>
+            </div>
+
+            <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+            <aside class="detail-panel" id="detail" aria-label="Detalhe do produto selecionado">
+              <button type="button" class="detail-close" id="detail-close" aria-label="Fechar detalhe">Fechar ✕</button>
+              <div id="detail-body"><div class="detail-empty"><span aria-hidden="true">✦</span><h2>Escolha um produto</h2><p>O detalhe mostra a classificação padrão, os enquadramentos possíveis, o texto da lei e o que a equipe precisa confirmar.</p></div></div>
+            </aside>
+          </div>
+          <p class="c-note">Fonte: consulta em lote da Reforma Tributária (abas ENTRADAS, RESULTADO e IMUNIDADE), com os apontamentos da seção 4 do <a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=7" target="_blank" rel="noopener"><strong>diagnóstico</strong></a>. A marcação "revisado" fica salva apenas neste navegador; use a exportação em CSV para compartilhar a lista com a equipe. A consulta indica possibilidades a partir do NCM: o enquadramento final depende da descrição do produto, da FISPQ e do destinatário.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Consulta em lote dos 2.829 produtos cadastrados, de 2026 a 2033. As alíquotas futuras ainda dependem da regulamentação.</p></div><a href="index.html">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
+  </body>
+</html>
