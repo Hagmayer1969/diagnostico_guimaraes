@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1914" />
+    <meta name="description" content="Plano de ação do Grupo Guimarães em mapa interativo: o que fazer, em que ordem, com que prazo e quando cada passo está concluído." />
+    <title>Plano de ação passo a passo | Diagnóstico Tributário Grupo Guimarães — França O Meu Contador</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plano.css" />
+    <script defer src="plano-data.js"></script>
+    <script defer src="plano.js"></script>
+  </head>
+  <body class="subpage">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="França O Meu Contador — início">
+          <img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" />
+        </a>
+        <nav class="primary-nav sub-nav" aria-label="Navegação principal">
+          <a class="nav-report" href="index.html#prioridades">← Voltar ao diagnóstico</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="sub-hero" aria-labelledby="plano-title">
+        <div class="container">
+          <p class="eyebrow light"><span class="eyebrow-line"></span> Próximos passos · Seção 15 do diagnóstico</p>
+          <h1 id="plano-title">Plano de ação, <em>passo a passo.</em></h1>
+          <p class="sub-lead">Cada ramo do mapa é uma área responsável e cada ponto é um passo com prazo. Toque em um passo para ver o que fazer, em que ordem e quando ele está concluído.</p>
+        </div>
+      </section>
+
+      <section class="plano-section" aria-label="Mapa do plano de ação">
+        <div class="container">
+          <noscript><p class="plano-noscript">O mapa interativo precisa de JavaScript. O plano completo está no <a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=19" target="_blank" rel="noopener">relatório em PDF, página 19</a>.</p></noscript>
+
+          <div class="plano-toolbar">
+            <div class="seg" role="group" aria-label="Forma de visualizar o plano">
+              <button type="button" data-view="mapa" aria-pressed="true">Mapa por área</button>
+              <button type="button" data-view="prazo" aria-pressed="false">Por prazo</button>
+            </div>
+            <div class="plano-progress" aria-live="polite">
+              <span class="plano-progress-text" id="progress-text"></span>
+              <span class="plano-progress-bar" aria-hidden="true"><span id="progress-fill"></span></span>
+            </div>
+          </div>
+
+          <div class="plano-layout">
+            <div class="plano-views">
+              <div class="map-tree" id="view-mapa"><svg class="map-lines" id="map-lines" aria-hidden="true"></svg></div>
+              <div id="view-prazo" hidden></div>
+            </div>
+
+            <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+            <aside class="detail-panel" id="detail" aria-label="Detalhe do passo selecionado">
+              <button type="button" class="detail-close" id="detail-close" aria-label="Fechar detalhe">Fechar ✕</button>
+              <div id="detail-body"></div>
+            </aside>
+          </div>
+
+          <p class="plano-note">Prazos do plano de ação do diagnóstico (seção 15). O andamento de cada item deve ser confirmado com as equipes responsáveis. Os passos marcados como concluídos ficam salvos apenas neste navegador.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Conteúdo baseado no relatório corrigido de 23 páginas. Dados disponíveis até 19/11/2026. As projeções são instrumentos de planejamento e devem ser atualizadas conforme a regulamentação.</p></div><a href="index.html">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
+  </body>
+</html>
