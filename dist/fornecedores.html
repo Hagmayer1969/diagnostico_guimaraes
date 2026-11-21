@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1914" />
+    <meta name="description" content="Perfil tributário dos fornecedores da Guimarães pela situação no Simples Nacional, consulta de CNPJs e simulações de crédito de IBS e CBS nas compras." />
+    <title>Fornecedores e créditos | Diagnóstico Tributário Grupo Guimarães — França O Meu Contador</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plano.css" />
+    <link rel="stylesheet" href="consulta.css" />
+    <script defer src="consulta-ui.js"></script>
+    <script defer src="simples-ui.js"></script>
+    <script defer src="simulador-model.js"></script>
+    <script defer src="fornecedores-data.js"></script>
+    <script defer src="fornecedores.js"></script>
+  </head>
+  <body class="subpage">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="França O Meu Contador — início">
+          <img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" />
+        </a>
+        <nav class="primary-nav sub-nav" aria-label="Navegação principal">
+          <a class="nav-report" href="index.html#consultas">← Voltar ao diagnóstico</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="sub-hero" aria-labelledby="sub-title">
+        <div class="container">
+          <nav class="consulta-tabs" aria-label="Consultas">
+            <a href="produtos.html">Produtos</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="fornecedores.html" aria-current="page">Fornecedores</a>
+          </nav>
+          <p class="eyebrow light"><span class="eyebrow-line"></span> Cadeia de compras · Seções 2 e 5 do diagnóstico</p>
+          <h1 id="sub-title">Fornecedores e <em>créditos de IBS e CBS.</em></h1>
+          <p class="sub-lead">O regime de quem vende para a Guimarães define quanto crédito ela toma. Hoje toda compra dá 9,25% de PIS/COFINS; com a Reforma, a compra do Simples tradicional passa a dar só o pouco de CBS e IBS pago dentro do DAS.</p>
+          <div class="sub-metrics four">
+            <div><span id="m-total">3.273</span><small>cadastros consultados na Receita</small></div>
+            <div><span id="m-regular">2.020</span><small>fora do Simples: crédito integral</small></div>
+            <div><span id="m-optantes">1.226</span><small>optantes do Simples (<strong id="m-optantes-pct">37,5%</strong>)</small></div>
+            <div><span>R$ 5,52 mi</span><small>compras/ano do Simples tradicional</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section" aria-labelledby="perfil-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">PERFIL DA CADEIA</p><h2 id="perfil-title">Muitos fornecedores no Simples, pouco valor</h2></div>
+            <p>Mais de um terço dos cadastros é optante do Simples, mas essas compras são 5,1% do valor comprado. O crédito perdido se concentra em poucos fornecedores de maior valor.</p>
+          </div>
+          <div class="c-grid even">
+            <div class="c-card">
+              <span class="c-kicker">Por quantidade · Receita Federal, base <span id="m-ref">10/2026</span></span>
+              <h3>Os 3.273 cadastros de fornecedores</h3>
+              <p class="c-sub">Toque em um cartão para ver os CNPJs na consulta abaixo.</p>
+              <div class="stack" id="stack-perfil"></div>
+              <ul class="legend" id="legend-perfil"></ul>
+              <div class="kpis" id="kpis-perfil" style="margin-top:22px"></div>
+            </div>
+            <div class="c-card">
+              <span class="c-kicker">Por valor · diagnóstico, 12 meses</span>
+              <h3>R$ 108,22 mi comprados de 1.866 fornecedores</h3>
+              <p class="c-sub">Regime pelo CRT das notas (relatório Perfil Tributário da Domínio, set–out/2026).</p>
+              <div class="stack" id="stack-valor"></div>
+              <ul class="legend" id="legend-valor"></ul>
+              <p class="c-note">A contagem da Receita inclui todos os CNPJs cadastrados como fornecedor; a análise por valor considera só quem vendeu nos 12 meses do período-base.</p>
+            </div>
+          </div>
+          <div class="c-card" style="margin-top:22px">
+            <span class="c-kicker">Movimento dos últimos anos</span>
+            <h3>Entradas e saídas do Simples entre os fornecedores</h3>
+            <p class="c-sub">Ano em que os fornecedores de hoje saíram do Simples ou fizeram a opção atual. Quem sai passa a dar crédito integral de CBS e IBS.</p>
+            <div class="chart-legend" id="mov-legend"></div>
+            <div class="bars" id="mov-chart"></div>
+            <div class="bars-x" id="mov-axis"></div>
+          </div>
+          <div class="c-card" style="margin-top:22px">
+            <span class="c-kicker">Crédito por R$ 100 de compra (sem ICMS)</span>
+            <h3>O que muda no crédito, por regime do fornecedor</h3>
+            <div class="table-wrap"><table class="sub-table" id="credito-tabela"></table></div>
+            <p class="c-note">Alíquotas de CBS + IBS do diagnóstico (11,3% em 2027–2028, até 29,0% em 2033). O crédito do Simples tradicional depende do anexo e da faixa do fornecedor; o diagnóstico adotou zero por prudência. No Simples Híbrido o fornecedor recolhe CBS e IBS por fora e o crédito é integral.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section alt" id="consulta" aria-labelledby="consulta-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">CONSULTA</p><h2 id="consulta-title">Consulte um fornecedor</h2></div>
+            <p>Digite o CNPJ (com ou sem pontuação), a raiz de 8 dígitos ou cole uma lista de CNPJs para ver de uma vez quais são optantes.</p>
+          </div>
+          <div class="finder-tools">
+            <label class="search"><span class="sr-only">Buscar CNPJ</span><textarea id="cnpj-q" rows="1" placeholder="Ex.: 11.659.958/0001-05 ou 11659958" autocomplete="off"></textarea></label>
+            <label><span class="sr-only">Filtro</span><select class="select" id="cnpj-filtro">
+              <option value="todos">Todos os fornecedores</option>
+              <option value="O">Optantes do Simples</option>
+              <option value="mei">MEI</option>
+              <option value="X">Saíram do Simples</option>
+              <option value="N">Nunca optaram</option>
+              <option value="recentes">Saíram nos 2 últimos anos</option>
+              <option value="novos">Entraram nos 2 últimos anos</option>
+            </select></label>
+          </div>
+          <div class="finder-count"><span id="cnpj-count" aria-live="polite"></span><button type="button" class="link-button" id="cnpj-export">Exportar lista (CSV)</button></div>
+          <div class="table-scroll">
+            <table class="c-table">
+              <thead><tr><th scope="col">CNPJ</th><th scope="col">Situação no Simples</th><th scope="col">MEI</th><th scope="col">Estabelecimento</th><th scope="col">Crédito na Reforma</th></tr></thead>
+              <tbody id="cnpj-body"></tbody>
+            </table>
+          </div>
+          <button type="button" class="link-button more" id="cnpj-more" hidden>Mostrar mais</button>
+          <p class="c-note">Fonte: Dados Abertos do CNPJ da Receita Federal (arquivo do Simples), consulta de 13/11/2026 sobre a base de 10/2026. A planilha não traz o valor comprado de cada fornecedor; para priorizar contatos sobre o Simples Híbrido, cruze esta lista com o relatório de compras. Os CPFs (produtores e outros fornecedores pessoa física) não são exibidos.</p>
+        </div>
+      </section>
+
+      <section class="c-section" id="simulador" aria-labelledby="sim-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">SIMULADOR DE COMPRA</p><h2 id="sim-title">Duas propostas, um custo líquido</h2></div>
+            <p>Compare um fornecedor do regime regular com um do Simples. O que importa é o custo depois dos créditos, não o valor da nota.</p>
+          </div>
+          <div class="sim">
+            <form class="sim-inputs" onsubmit="return false">
+              <fieldset class="field"><legend>Ano</legend><div class="chips" id="sim-ano"></div></fieldset>
+              <fieldset class="field"><legend>Tratamento do produto comprado</legend><div class="chips" id="sim-trat"></div></fieldset>
+              <label class="field"><span>CBS + IBS do ano (%)</span><input type="number" id="sim-aliq" step="0.01" min="0" max="60" /><small id="sim-aliq-note"></small></label>
+              <div class="custom-fields">
+                <strong>Fornecedor A · regime regular</strong>
+                <div class="field-row">
+                  <label class="field"><span>Preço sem CBS/IBS (R$)</span><input type="number" id="a-preco" step="0.01" min="0.01" value="100" /></label>
+                  <label class="field"><span>ICMS na nota (%)</span><input type="number" id="a-icms" step="0.1" min="0" max="40" value="12" /></label>
+                </div>
+              </div>
+              <div class="custom-fields">
+                <strong>Fornecedor B · Simples</strong>
+                <div class="field-row">
+                  <label class="field"><span>Total da nota (R$)</span><input type="number" id="b-preco" step="0.01" min="0.01" value="95" /></label>
+                  <label class="field"><span>ICMS creditável (%)</span><input type="number" id="b-icms" step="0.1" min="0" max="40" value="0" /></label>
+                </div>
+                <label class="field"><span>CBS/IBS do DAS creditável (% da nota)</span><input type="number" id="b-das" step="0.1" min="0" max="30" value="0" /><small>Depende do anexo e da faixa do fornecedor. O diagnóstico usou zero.</small></label>
+                <label class="field" style="grid-template-columns:auto 1fr;align-items:center"><input type="checkbox" id="b-hibrido" /><span>O fornecedor optou pelo Simples Híbrido (CBS/IBS por fora, crédito integral)</span></label>
+              </div>
+            </form>
+            <div class="sim-out" aria-live="polite">
+              <div class="headline" id="sim-headline"></div>
+              <div class="versus" id="sim-versus"></div>
+            </div>
+          </div>
+
+          <div class="c-head" style="margin-top:56px">
+            <div><p class="eyebrow">IMPACTO NA CARTEIRA DE COMPRAS</p><h2>Quanto crédito a Guimarães deixa de tomar</h2></div>
+            <p>Compras de R$ 5,52 mi por ano no Simples tradicional, fora do grupo (seção 5). Veja o efeito de fornecedores migrarem para o Simples Híbrido ou de trocar parte do volume por fornecedores do regime regular.</p>
+          </div>
+          <div class="sim">
+            <form class="sim-inputs" onsubmit="return false">
+              <label class="field"><span>Compras/ano no Simples tradicional (R$)</span><input type="number" id="c-base" step="1000" min="0" value="5520000" /></label>
+              <label class="field"><span>Volume que passa a crédito integral: <strong id="c-migra-out">0%</strong></span><input type="range" id="c-migra" min="0" max="100" step="5" value="0" /><small>Fornecedores que optam pelo Híbrido ou compras transferidas para fornecedores do regime regular.</small></label>
+              <label class="field"><span>CBS/IBS do DAS creditável no restante (%)</span><input type="number" id="c-das" step="0.1" min="0" max="30" value="0" /></label>
+            </form>
+            <div class="sim-out">
+              <div class="headline" id="c-headline"></div>
+              <div class="c-card">
+                <span class="c-kicker">Crédito de CBS/IBS que deixa de existir, por ano</span>
+                <h3>Sem ação × cenário escolhido</h3>
+                <div class="chart-legend" id="c-legend"></div>
+                <div class="bars" id="c-chart"></div>
+                <div class="bars-x" id="c-axis"></div>
+              </div>
+            </div>
+          </div>
+          <details class="calculator-method" style="margin-top:24px"><summary>Premissas e limites do simulador</summary><div>
+            <p><strong>Custo líquido</strong> é o valor pago na nota menos os créditos da Guimarães (Lucro Real, não cumulativo). Hoje: ICMS destacado + 9,25% de PIS/COFINS sobre o valor sem ICMS, inclusive na compra do Simples. Na Reforma: fornecedor regular cobra CBS/IBS por fora, sobre o valor sem ICMS, e a Guimarães credita o ICMS e a CBS/IBS; fornecedor do Simples tradicional dá crédito do ICMS permitido e só da CBS/IBS paga no DAS; no Híbrido, o crédito de CBS/IBS é integral.</p>
+            <p><strong>Transição:</strong> o ICMS cai para 90%, 80%, 70% e 60% de 2029 a 2032 e é extinto em 2033; os percentuais de ICMS informados são reduzidos na mesma proporção. Alíquotas de CBS/IBS do diagnóstico, editáveis.</p>
+            <p><strong>Limites:</strong> considera compras para revenda ou insumo; não trata IPI, frete, prazos de pagamento nem split payment. O impacto na carteira usa só a CBS/IBS, como a seção 5 do diagnóstico.</p>
+            <a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=8" target="_blank" rel="noopener">Ver de onde vem o crédito no PDF (seção 5)</a>
+          </div></details>
+        </div>
+      </section>
+      <section class="c-section alt" id="planilhas" aria-labelledby="planilhas-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">PLANILHAS DE ORIGEM</p><h2 id="planilhas-title">Baixe os dados usados nesta análise</h2></div>
+            <p>As mesmas planilhas que alimentam as consultas, no formato Excel, para conferência ou análises próprias.</p>
+          </div>
+          <div class="downloads">
+            <a class="download" href="assets/planilhas/guimaraes-produtos-consulta-lote.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Consulta em lote dos produtos</strong><p>Abas ENTRADAS, RESULTADO e IMUNIDADE: 2.829 produtos, alíquotas de 2026 a 2033.</p><span class="go">Baixar planilha</span> <small>· 4,8 MB</small></span></a>
+            <a class="download" href="assets/planilhas/guimaraes-clientes-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos clientes</strong><p>6.003 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 205 KB</small></span></a>
+            <a class="download atual" href="assets/planilhas/guimaraes-fornecedores-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos fornecedores</strong><p>3.273 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 117 KB · base desta página</small></span></a>
+          </div>
+          <p class="c-note">Nas planilhas de clientes e fornecedores, os números de CPF (pessoas físicas) foram substituídos por "CPF omitido"; as demais linhas e a aba "Sobre a base" estão como vieram da consulta.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Situação no Simples consultada na Receita Federal (base 10/2026). As simulações são instrumentos de planejamento e devem ser revistas com a alíquota definitiva.</p></div><a href="index.html">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1914" />
+    <meta name="description" content="Perfil da carteira de clientes da Guimarães pela situação no Simples Nacional, consulta de CNPJs e simulador de política de preços com as regras de crédito de IBS e CBS." />
+    <title>Clientes e competitividade | Diagnóstico Tributário Grupo Guimarães — França O Meu Contador</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plano.css" />
+    <link rel="stylesheet" href="consulta.css" />
+    <script defer src="consulta-ui.js"></script>
+    <script defer src="simples-ui.js"></script>
+    <script defer src="simulador-model.js"></script>
+    <script defer src="clientes-data.js"></script>
+    <script defer src="clientes.js"></script>
+  </head>
+  <body class="subpage">
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="França O Meu Contador — início">
+          <img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" />
+        </a>
+        <nav class="primary-nav sub-nav" aria-label="Navegação principal">
+          <a class="nav-report" href="index.html#consultas">← Voltar ao diagnóstico</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="sub-hero" aria-labelledby="sub-title">
+        <div class="container">
+          <nav class="consulta-tabs" aria-label="Consultas">
+            <a href="produtos.html">Produtos</a>
+            <a href="clientes.html" aria-current="page">Clientes</a>
+            <a href="fornecedores.html">Fornecedores</a>
+          </nav>
+          <p class="eyebrow light"><span class="eyebrow-line"></span> Carteira comercial · Seções 3 e 13 do diagnóstico</p>
+          <h1 id="sub-title">Quem credita, <em>quem sente o preço.</em></h1>
+          <p class="sub-lead">Com a CBS e o IBS, o cliente que credita o imposto compara o preço sem tributo; o cliente do Simples e a pessoa física pagam o total da nota. A situação de cada CNPJ da carteira mostra para quem a tabela de 2027 precisa ser pensada.</p>
+          <div class="sub-metrics four">
+            <div><span id="m-total">6.003</span><small>cadastros consultados na Receita</small></div>
+            <div><span id="m-regular">3.011</span><small>fora do Simples: creditam IBS e CBS</small></div>
+            <div><span id="m-optantes">2.105</span><small>optantes do Simples (<strong id="m-optantes-pct">35,1%</strong>)</small></div>
+            <div><span id="m-cpf">885</span><small>pessoas físicas (CPF)</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section" aria-labelledby="perfil-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">PERFIL DA CARTEIRA</p><h2 id="perfil-title">Como a carteira se divide</h2></div>
+            <p>Contagem de cadastros, não de faturamento. Pelo valor vendido, o diagnóstico mostra que <strong>81,8%</strong> das vendas vão para clientes fora do Simples e <strong>18,2%</strong> para optantes (set–out/2026).</p>
+          </div>
+          <div class="c-grid">
+            <div class="c-card">
+              <span class="c-kicker">Situação no Simples · base de <span id="m-ref">10/2026</span></span>
+              <h3>Os 6.003 cadastros de clientes</h3>
+              <p class="c-sub">Toque em um cartão para ver os CNPJs na consulta abaixo.</p>
+              <div class="stack" id="stack-perfil"></div>
+              <ul class="legend" id="legend-perfil"></ul>
+              <div class="kpis" id="kpis-perfil" style="margin-top:22px"></div>
+            </div>
+            <div class="c-card">
+              <span class="c-kicker">Movimento dos últimos anos</span>
+              <h3>Entradas e saídas do Simples</h3>
+              <p class="c-sub">Ano em que os clientes de hoje saíram do Simples ou fizeram a opção atual.</p>
+              <div class="chart-legend" id="mov-legend"></div>
+              <div class="bars" id="mov-chart"></div>
+              <div class="bars-x" id="mov-axis"></div>
+              <p class="c-note">Quem sai do Simples passa a creditar o IBS e a CBS da nota da Guimarães e a olhar o preço sem tributo. A situação é a do mês de referência da base da Receita; mudanças posteriores não aparecem.</p>
+            </div>
+          </div>
+          <div class="explain" style="margin-top:22px">
+            <div><h3><i style="--seg:#2f74c0"></i>Fora do Simples</h3><p>Credita a CBS e o IBS da nota. Para ele importa o valor sem esses tributos: se a Guimarães mantiver esse valor, o custo dele não muda.</p></div>
+            <div><h3><i style="--seg:#b07a12"></i>Optante do Simples e MEI</h3><p>Não credita (salvo se optar pelo Simples Híbrido). Sente a CBS e o IBS como custo e compara o total da nota.</p></div>
+            <div><h3><i style="--seg:#a0479a"></i>Pessoa física</h3><p>Consumidor final: paga o total da nota. Os CPFs não são exibidos nesta página; entram apenas na contagem.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="c-section alt" id="consulta" aria-labelledby="consulta-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">CONSULTA</p><h2 id="consulta-title">Consulte um CNPJ</h2></div>
+            <p>Digite o CNPJ (com ou sem pontuação), a raiz de 8 dígitos ou cole uma lista de CNPJs separados por linha, espaço ou vírgula.</p>
+          </div>
+          <div class="finder-tools">
+            <label class="search"><span class="sr-only">Buscar CNPJ</span><textarea id="cnpj-q" rows="1" placeholder="Ex.: 02.037.366/0001-60 ou 02037366" autocomplete="off"></textarea></label>
+            <label><span class="sr-only">Filtro</span><select class="select" id="cnpj-filtro">
+              <option value="todos">Todos os clientes</option>
+              <option value="O">Optantes do Simples</option>
+              <option value="mei">MEI</option>
+              <option value="X">Saíram do Simples</option>
+              <option value="N">Nunca optaram</option>
+              <option value="recentes">Saíram nos 2 últimos anos</option>
+              <option value="novos">Entraram nos 2 últimos anos</option>
+            </select></label>
+          </div>
+          <div class="finder-count"><span id="cnpj-count" aria-live="polite"></span><button type="button" class="link-button" id="cnpj-export">Exportar lista (CSV)</button></div>
+          <div class="table-scroll">
+            <table class="c-table">
+              <thead><tr><th scope="col">CNPJ</th><th scope="col">Situação no Simples</th><th scope="col">MEI</th><th scope="col">Estabelecimento</th><th scope="col">Na Reforma</th></tr></thead>
+              <tbody id="cnpj-body"></tbody>
+            </table>
+          </div>
+          <button type="button" class="link-button more" id="cnpj-more" hidden>Mostrar mais</button>
+          <p class="c-note">Fonte: Dados Abertos do CNPJ da Receita Federal (arquivo do Simples), consulta de 13/11/2026 sobre a base de 10/2026. A planilha marca 833 documentos como CNPJ inválido (831 são CPFs). Outros <strong>54 registros</strong> aparecem como CNPJ válido, mas são CPFs completados com zeros (raiz 000… e "filial" inexistente, como 4069); a consulta cruzou essas raízes com empresas do Simples. Aqui eles contam como pessoa física, por isso os totais diferem da planilha (2.107 optantes e 3.063 não optantes). A opção pelo Simples vale para a empresa inteira (raiz do CNPJ). "Nunca optou" indica Lucro Presumido ou Real, mas também pode ser empresa inativa, cooperativa ou órgão público.</p>
+        </div>
+      </section>
+
+      <section class="c-section" id="simulador" aria-labelledby="sim-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">SIMULADOR DE PREÇOS</p><h2 id="sim-title">Quatro formas de levar a tabela para a Reforma</h2></div>
+            <p>Escolha o produto e o ano. O simulador recalcula a nota, a margem da Guimarães e o custo de cada tipo de cliente depois dos créditos a que ele tem direito.</p>
+          </div>
+          <div class="sim">
+            <form class="sim-inputs" id="sim-form" onsubmit="return false">
+              <fieldset class="field"><legend>Produto</legend><div class="chips" id="sim-produto"></div></fieldset>
+              <div class="custom-fields" id="sim-custom" hidden>
+                <div class="field-row">
+                  <label class="field"><span>Preço sem IPI (R$)</span><input type="number" step="0.01" min="0.01" data-k="preco" value="10.00" /></label>
+                  <label class="field"><span>IPI (%)</span><input type="number" step="0.1" min="0" data-k="ipi" value="0" /></label>
+                </div>
+                <div class="field-row">
+                  <label class="field"><span>ICMS (%)</span><input type="number" step="0.1" min="0" max="40" data-k="icms" value="12" /></label>
+                  <label class="field"><span>PIS/COFINS no preço (%)</span><input type="number" step="0.01" min="0" data-k="pisCofins" value="8.14" /></label>
+                </div>
+                <div class="field-row">
+                  <label class="field"><span>Custo do produto (R$)</span><input type="number" step="0.01" min="0" data-k="cpv" value="5.00" /></label>
+                  <label class="field"><span>Frete (R$)</span><input type="number" step="0.01" min="0" data-k="frete" value="1.00" /></label>
+                </div>
+                <div class="field-row">
+                  <label class="field"><span>Comissão (R$)</span><input type="number" step="0.01" min="0" data-k="comissao" value="0.40" /></label>
+                  <label class="field"><span>Despesas (R$)</span><input type="number" step="0.01" min="0" data-k="despesas" value="1.00" /></label>
+                </div>
+              </div>
+              <fieldset class="field"><legend>Ano</legend><div class="chips" id="sim-ano"></div></fieldset>
+              <fieldset class="field"><legend>Tratamento do produto</legend><div class="chips" id="sim-trat"></div><small>Redução de 60% só se o enquadramento for confirmado (por exemplo, água sanitária no Anexo VIII).</small></fieldset>
+              <label class="field"><span>CBS + IBS do ano (%)</span><input type="number" id="sim-aliq" step="0.01" min="0" max="60" /><small id="sim-aliq-note"></small></label>
+              <label class="field"><span>Opção D · variação do valor líquido: <strong id="sim-ajuste-out">0%</strong></span><input type="range" id="sim-ajuste" min="-10" max="15" step="0.5" value="0" /></label>
+              <fieldset class="field"><legend>Participação nas vendas (%)</legend>
+                <div class="mix" id="sim-mix"></div>
+                <small class="mix-total" id="sim-mix-total"></small>
+              </fieldset>
+            </form>
+
+            <div class="sim-out" aria-live="polite">
+              <div class="headline" id="sim-headline"></div>
+              <div class="c-card">
+                <span class="c-kicker">Comparação das estratégias</span>
+                <h3 id="sim-matrix-title">Por unidade</h3>
+                <p class="c-sub">Variação do custo de cada cliente em relação a hoje, depois dos créditos. Toque em uma linha para ver a nota.</p>
+                <div class="table-wrap"><table class="c-table matrix" id="sim-matrix"></table></div>
+              </div>
+              <div class="c-card">
+                <span class="c-kicker">Nota da estratégia escolhida</span>
+                <h3 id="sim-nota-title"></h3>
+                <div class="table-wrap"><table class="sub-table" id="sim-nota"></table></div>
+              </div>
+            </div>
+          </div>
+          <details class="calculator-method" style="margin-top:24px"><summary>Premissas e limites do simulador</summary><div>
+            <p><strong>Nota:</strong> segue a seção 13 do diagnóstico. Hoje o ICMS e o PIS/COFINS estão dentro do preço e o IPI vai por fora. A partir de 2027 o PIS/COFINS sai, o IPI é zerado e a CBS e o IBS entram por fora, sobre o valor sem ICMS. De 2029 a 2032 o ICMS cai para 90%, 80%, 70% e 60% e é extinto em 2033. Frete, comissão, despesas e custo do produto ficam em reais.</p>
+            <p><strong>Créditos do cliente:</strong> Lucro Real credita ICMS e 9,25% de PIS/COFINS hoje (sobre o valor sem ICMS) e ICMS + CBS/IBS na Reforma; Lucro Presumido credita só o ICMS hoje e ICMS + CBS/IBS na Reforma; Simples Híbrido credita a CBS/IBS; Simples tradicional, MEI e pessoa física não creditam. O IPI é tratado como custo para todos. A opção C iguala o custo do cliente do Lucro Real ao de hoje.</p>
+            <p><strong>Limites:</strong> não considera créditos novos sobre frete e comissão, eventual inclusão da CBS/IBS na base do ICMS, nem reação de concorrentes. A participação nas vendas padrão vem do diagnóstico (81,8% fora do Simples e 18,2% optantes, sem separar Real e Presumido). Ajuste os percentuais à realidade de cada canal.</p>
+            <a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=16" target="_blank" rel="noopener">Ver a formação de preço no PDF (seção 13)</a>
+          </div></details>
+        </div>
+      </section>
+      <section class="c-section alt" id="planilhas" aria-labelledby="planilhas-title">
+        <div class="container">
+          <div class="c-head">
+            <div><p class="eyebrow">PLANILHAS DE ORIGEM</p><h2 id="planilhas-title">Baixe os dados usados nesta análise</h2></div>
+            <p>As mesmas planilhas que alimentam as consultas, no formato Excel, para conferência ou análises próprias.</p>
+          </div>
+          <div class="downloads">
+            <a class="download" href="assets/planilhas/guimaraes-produtos-consulta-lote.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Consulta em lote dos produtos</strong><p>Abas ENTRADAS, RESULTADO e IMUNIDADE: 2.829 produtos, alíquotas de 2026 a 2033.</p><span class="go">Baixar planilha</span> <small>· 4,8 MB</small></span></a>
+            <a class="download atual" href="assets/planilhas/guimaraes-clientes-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos clientes</strong><p>6.003 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 205 KB · base desta página</small></span></a>
+            <a class="download" href="assets/planilhas/guimaraes-fornecedores-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos fornecedores</strong><p>3.273 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 117 KB</small></span></a>
+          </div>
+          <p class="c-note">Nas planilhas de clientes e fornecedores, os números de CPF (pessoas físicas) foram substituídos por "CPF omitido"; as demais linhas e a aba "Sobre a base" estão como vieram da consulta.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Situação no Simples consultada na Receita Federal (base 10/2026). As simulações são instrumentos de planejamento e devem ser revistas com a alíquota definitiva.</p></div><a href="index.html">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
+  </body>
+</html>
