@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1914" />
+    <meta name="description" content="Diagnóstico tributário interativo do Grupo Guimarães: projeções, impactos no caixa, decisões e acesso ao relatório completo." />
+    <title>Diagnóstico Tributário | Grupo Guimarães — França O Meu Contador</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <header class="site-header" id="inicio">
+      <div class="container header-inner">
+        <a class="brand" href="#inicio" aria-label="França O Meu Contador — início">
+          <img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" />
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primary-nav" aria-label="Navegação principal">
+          <a href="#visao-geral">Visão geral</a>
+          <a href="#projecoes">Projeções</a>
+          <a href="#prioridades">Prioridades</a>
+          <a href="#explorar">Explorar temas</a>
+          <a class="nav-report" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Relatório completo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow light"><span class="eyebrow-line"></span> Diagnóstico tributário · Grupo Guimarães</p>
+            <h1 id="hero-title">A reforma muda os tributos.<br /><em>As decisões começam aqui.</em></h1>
+            <p class="hero-lead">Uma leitura clara dos impactos da CBS e do IBS nas cinco empresas do grupo, com os números essenciais à vista e o detalhe a um clique.</p>
+            <div class="hero-actions">
+              <a class="button button-gold" href="#visao-geral">Ver os resultados</a>
+              <a class="button button-outline" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Abrir PDF completo</a>
+            </div>
+            <div class="hero-context"><span class="context-dot" aria-hidden="true"></span> Dados reais: out/2025 a set/2026 <span class="context-separator" aria-hidden="true">·</span> Projeções: 2027 a 2033</div>
+          </div>
+          <div class="hero-dashboard" aria-label="Resumo da carga tributária projetada">
+            <div class="dashboard-top">
+              <div>
+                <span class="dashboard-kicker">VISÃO RÁPIDA</span>
+                <h2>Carga sobre consumo</h2>
+              </div>
+              <span class="dashboard-mark" aria-hidden="true">F<span>.</span></span>
+            </div>
+            <div class="segment-control" role="group" aria-label="Escolher visão do resumo">
+              <button class="segment active" type="button" data-view="guimaraes" aria-pressed="true">Guimarães</button>
+              <button class="segment" type="button" data-view="grupo" aria-pressed="false">Grupo</button>
+            </div>
+            <div class="dashboard-values" aria-live="polite">
+              <div class="dashboard-row"><span>Hoje <small>12 meses analisados</small></span><strong id="hero-current">R$ 6,61 mi</strong></div>
+              <div class="dashboard-row"><span>2027 <small>início da CBS</small></span><strong id="hero-2027">R$ 6,47 mi</strong></div>
+              <div class="dashboard-row emphasized"><span>2033 <small>IBS pleno</small></span><strong id="hero-2033">R$ 2,50 mi</strong></div>
+            </div>
+            <div class="dashboard-foot"><span class="tiny-sparkle" aria-hidden="true">✦</span><span id="hero-insight">Na Guimarães, a queda projetada em 2033 é de 62,2% frente à base atual.</span></div>
+          </div>
+        </div>
+        <div class="container hero-bottom"><span>FRANÇA — O MEU CONTADOR</span><span>REFORMA SOB CONTROLE</span><span>01 / DIAGNÓSTICO</span></div>
+      </section>
+
+      <section class="metric-band" aria-label="Indicadores do período analisado">
+        <div class="container metrics-grid">
+          <div class="metric-item"><span class="metric-number">5</span><span class="metric-label">empresas no diagnóstico</span></div>
+          <div class="metric-item"><span class="metric-number">R$ 124,91 mi</span><span class="metric-label">receita bruta consolidada*</span></div>
+          <div class="metric-item"><span class="metric-number">R$ 83,31 mi</span><span class="metric-label">compras com crédito de PIS/COFINS</span></div>
+          <div class="metric-item"><span class="metric-number">R$ 5,45 mi</span><span class="metric-label">parcelas nominais do PRODEC</span></div>
+        </div>
+      </section>
+
+      <section class="section overview" id="visao-geral" aria-labelledby="overview-title">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div><p class="eyebrow">O ESSENCIAL</p><h2 id="overview-title">O que o diagnóstico revela</h2></div>
+            <p>Três leituras para orientar as próximas decisões. Toque em cada tema para entender os números e abrir a página correspondente do relatório.</p>
+          </div>
+          <div class="overview-grid">
+            <article class="insight-card first">
+              <div class="card-top"><span class="card-index">01</span><span class="card-icon" aria-hidden="true">↘</span></div>
+              <p class="card-overline">CARGA TRIBUTÁRIA</p>
+              <h3>A Guimarães tende a recolher menos ao longo da transição.</h3>
+              <p>De R$ 6,61 mi na base atual para R$ 6,47 mi em 2027 e R$ 2,50 mi em 2033. No grupo consolidado, 2027 começa com aumento de 7,1%.</p>
+              <a href="#projecoes">Examinar projeções</a>
+            </article>
+            <article class="insight-card second">
+              <div class="card-top"><span class="card-index">02</span><span class="card-icon" aria-hidden="true">◫</span></div>
+              <p class="card-overline">PRESSÃO DE CAIXA</p>
+              <h3>O PRODEC exige planejamento além da carga do ano.</h3>
+              <p>As parcelas começam em julho de 2027 e somam cerca de R$ 5,45 mi até abril de 2030. O maior desembolso anual projetado ocorre em 2029.</p>
+              <a href="#caixa">Ver fluxo de caixa</a>
+            </article>
+            <article class="insight-card third">
+              <div class="card-top"><span class="card-index">03</span><span class="card-icon" aria-hidden="true">✳</span></div>
+              <p class="card-overline">EXECUÇÃO</p>
+              <h3>Cadastro, preço e regime pedem decisão agora.</h3>
+              <p>Água sanitária, desinfetantes e 14 itens de cadastro precisam de revisão; a opção das quatro empresas pelo Simples Híbrido também deve ser reavaliada.</p>
+              <a href="#prioridades">Ver prioridades</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section projection-section" id="projecoes" aria-labelledby="projection-title">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div><p class="eyebrow">2027 → 2033</p><h2 id="projection-title">A transição em números</h2></div>
+            <p>Selecione uma visão e um ano. Os valores mostram a carga anual sobre consumo, mantendo a operação do período analisado como base da simulação.</p>
+          </div>
+          <div class="projection-shell">
+            <div class="projection-main">
+              <div class="chart-head"><div><span class="chart-label">CARGA SOBRE CONSUMO</span><h3>Trajetória projetada</h3></div><div class="chart-switch" role="group" aria-label="Escolher empresa ou grupo"><button type="button" class="chart-toggle active" data-view="guimaraes" aria-pressed="true">Guimarães</button><button type="button" class="chart-toggle" data-view="grupo" aria-pressed="false">Grupo consolidado</button></div></div>
+              <div class="bar-chart" id="bar-chart" aria-label="Gráfico interativo da carga tributária anual"></div>
+              <div class="chart-baseline"><span>HOJE</span><span>TRANSIÇÃO</span><span>IBS PLENO</span></div>
+              <p class="chart-note" id="chart-note">Projeção para a Guimarães: ICMS, PIS/COFINS e IPI hoje; ICMS, CBS e IBS nos anos seguintes.</p>
+            </div>
+            <aside class="projection-detail" aria-live="polite">
+              <span class="detail-label">ANO SELECIONADO</span>
+              <div class="year-display" id="selected-year">2027</div>
+              <div class="detail-rule"></div>
+              <span class="detail-label">CARGA PROJETADA</span>
+              <strong class="detail-value" id="selected-value">R$ 6,47 mi</strong>
+              <span class="detail-change" id="selected-change">−2,1% em relação a hoje</span>
+              <p id="selected-description">A CBS substitui PIS/COFINS, enquanto o ICMS permanece integral.</p>
+              <a id="selected-source" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=13" target="_blank" rel="noopener">Ver cálculo no relatório</a>
+            </aside>
+          </div>
+          <p class="source-note">* A receita consolidada inclui R$ 7.376.596,28 faturados entre empresas do grupo. Projeções usam alíquotas de referência do relatório, sujeitas a confirmação.</p>
+        </div>
+      </section>
+
+      <section class="section cash-section" id="caixa" aria-labelledby="cash-title">
+        <div class="container cash-grid">
+          <div class="cash-copy"><p class="eyebrow light">O PONTO DE ATENÇÃO</p><h2 id="cash-title">Menos tributo não significa menos saída de caixa.</h2><p>O ICMS postergado pelo PRODEC volta a ser pago entre 2027 e 2030. Essas parcelas ficam fora da carga tributária projetada, mas entram no desembolso financeiro.</p><a class="text-link light-link" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=11" target="_blank" rel="noopener">Entender a conta do PRODEC</a></div>
+          <div class="cash-panel"><div class="cash-panel-head"><span>PARCELAS DO PRODEC</span><strong>R$ 5,45 mi</strong></div><div class="cash-timeline"><div><span class="timeline-year">2027</span><span class="timeline-bar" style="--bar:46%"></span><strong>R$ 979 mil</strong></div><div><span class="timeline-year">2028</span><span class="timeline-bar" style="--bar:78%"></span><strong>R$ 1,66 mi</strong></div><div><span class="timeline-year">2029</span><span class="timeline-bar" style="--bar:100%"></span><strong>R$ 2,12 mi</strong></div><div><span class="timeline-year">2030</span><span class="timeline-bar" style="--bar:32%"></span><strong>R$ 684 mil</strong></div></div><div class="cash-callout"><span>MAIOR DESEMBOLSO ANUAL PROJETADO</span><strong>R$ 8.194.364,49 <small>em 2029</small></strong></div><p>O controle totaliza R$ 5.446.964,21 em parcelas nominais; o saldo contábil em 30/09/2026 é R$ 5.446.931,09. Confirmar eventual correção ou juros no termo do benefício.</p></div>
+        </div>
+      </section>
+
+      <section class="section priorities-section" id="prioridades" aria-labelledby="priorities-title">
+        <div class="container">
+          <div class="section-heading split-heading"><div><p class="eyebrow">PRÓXIMOS PASSOS</p><h2 id="priorities-title">Decisões com data marcada</h2></div><p>Prazos do plano de ação do diagnóstico. O andamento de cada item deve ser confirmado com as equipes responsáveis.</p></div>
+          <div class="priority-list">
+            <article class="priority-row"><div class="priority-date"><strong>30</strong><span>NOV / 2026</span></div><div class="priority-content"><span class="priority-owner">CONTABILIDADE E FISCAL</span><h3>Enviar a FISPQ da água sanitária</h3><p>Definir o NCM antes de ajustar o enquadramento e a tributação no cadastro.</p></div><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=19" target="_blank" rel="noopener" aria-label="Ver no relatório: FISPQ da água sanitária">Ver detalhe</a></article>
+            <article class="priority-row"><div class="priority-date"><strong>15</strong><span>DEZ / 2026</span></div><div class="priority-content"><span class="priority-owner">CONTABILIDADE E FISCAL</span><h3>Corrigir NCM e cClassTrib no Sankhya</h3><p>Revisar água sanitária, desinfetantes e os 14 itens com cadastro incompleto ou incorreto.</p></div><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=7" target="_blank" rel="noopener" aria-label="Ver no relatório: classificação fiscal">Ver detalhe</a></article>
+            <article class="priority-row"><div class="priority-date"><strong>20</strong><span>DEZ / 2026</span></div><div class="priority-content"><span class="priority-owner">DIRETORIA</span><h3>Revisar a opção pelo Simples Híbrido</h3><p>Confirmar ou cancelar a escolha das quatro empresas após a definição da alíquota da CBS.</p></div><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=14" target="_blank" rel="noopener" aria-label="Ver no relatório: Simples Híbrido">Ver detalhe</a></article>
+            <article class="priority-row"><div class="priority-date"><strong>31</strong><span>JAN / 2027</span></div><div class="priority-content"><span class="priority-owner">DIRETORIA E COMERCIAL</span><h3>Aprovar a política de preços de 2027</h3><p>Decidir por canal entre manter a margem ou manter o total da nota, já considerando CBS por fora e IPI zerado.</p></div><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=16" target="_blank" rel="noopener" aria-label="Ver no relatório: formação de preço">Ver detalhe</a></article>
+          </div>
+          <div class="priority-bottom"><span>Também no plano: incluir as parcelas do PRODEC no caixa, usar o saldo credor de IPI e testar o XML com CBS/IBS.</span><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=19" target="_blank" rel="noopener">Ver plano completo</a></div>
+        </div>
+      </section>
+
+      <section class="section explore-section" id="explorar" aria-labelledby="explore-title">
+        <div class="container explore-grid">
+          <div class="explore-intro"><p class="eyebrow">APROFUNDE QUANDO QUISER</p><h2 id="explore-title">Cada resposta a um clique.</h2><p>Explore os temas mais relevantes sem sair desta página. Para tabelas, memória de cálculo e contexto integral, abra a seção correspondente do PDF.</p><a class="button button-dark" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Acessar relatório completo</a></div>
+          <div class="accordion-list">
+            <details class="topic"><summary><span class="topic-num">01</span><span><strong>Créditos e fornecedores</strong><small>O que passa a gerar crédito na CBS e no IBS</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>As compras que já geram crédito de PIS/COFINS somam <strong>R$ 83.313.864,85</strong>. Despesas com nota hoje sem crédito acrescentam R$ 8.722.312,73 de base; compras do Simples tradicional, de R$ 5,52 mi, passam a dar apenas o crédito embutido no DAS. O ganho líquido projetado de crédito novo é R$ 361.861,34 em 2027.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=8" target="_blank" rel="noopener">Abrir seção 5 do PDF</a></div></details>
+            <details class="topic"><summary><span class="topic-num">02</span><span><strong>Empresas do grupo e Simples Híbrido</strong><small>Por que a leitura consolidada é diferente</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>As quatro empresas do Simples projetam aumento de <strong>R$ 684.688,34</strong> de carga em 2027. O crédito adicional da Guimarães sobre as notas delas é R$ 151.220,22. Assim, o efeito líquido da estrutura é de R$ 533.468,12 a mais para o grupo, antes da revisão com alíquotas definitivas.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=14" target="_blank" rel="noopener">Abrir seção 11 do PDF</a></div></details>
+            <details class="topic"><summary><span class="topic-num">03</span><span><strong>Produtos e classificação fiscal</strong><small>Água sanitária, desinfetantes e 14 itens</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>A água sanitária vendida está cadastrada no NCM 2828.90.19, enquanto a redução de 60% prevista no Anexo VIII depende da classificação em 3808.94.19. Desinfetantes no 3808.94.19 recebem sugestão de redução sem respaldo na descrição citada no diagnóstico. A FISPQ define o ajuste da água sanitária; outros 14 itens exigem correção cadastral.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=7" target="_blank" rel="noopener">Abrir seção 4 do PDF</a></div></details>
+            <details class="topic"><summary><span class="topic-num">04</span><span><strong>Clientes e política de preços</strong><small>O preço relevante muda conforme o canal</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>Clientes fora do Simples com direito a crédito comparam o preço sem CBS/IBS. Clientes do Simples e pessoas físicas olham o total da nota. O relatório compara, para dois produtos, manter a margem em reais ou manter o valor total cobrado; a tabela de 2027 precisa refletir CBS por fora e IPI zerado.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=16" target="_blank" rel="noopener">Abrir seção 13 do PDF</a></div></details>
+            <details class="topic"><summary><span class="topic-num">05</span><span><strong>Riscos, oportunidades e pendências</strong><small>O que já foi identificado e o que ainda depende de confirmação</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>Entre as prioridades: parcelas do PRODEC, classificação fiscal, preços e aproveitamento de créditos sobre despesas com nota. As projeções ainda dependem da alíquota definitiva da CBS e do IBS, dos percentuais do Simples Híbrido, da confirmação do NCM da água sanitária e do termo do PRODEC.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=18" target="_blank" rel="noopener">Abrir seção 14 do PDF</a></div></details>
+            <details class="topic"><summary><span class="topic-num">06</span><span><strong>Metodologia e memória de cálculo</strong><small>Fontes, bases e premissas da simulação</small></span><span class="topic-plus" aria-hidden="true"></span></summary><div class="topic-body"><p>O diagnóstico usa EFD-Contribuições, demonstrativos de ICMS e IPI, balancetes, LALUR e controle do PRODEC para o período de out/2025 a set/2026. A base de vendas usada para CBS/IBS é R$ 98.891.770,61; a base projetada de compras com crédito é R$ 90.276.842,43.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=23" target="_blank" rel="noopener">Abrir anexo do PDF</a></div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing-section"><div class="container closing-grid"><div><p class="eyebrow light">REFORMA SOB CONTROLE</p><h2>Informação para decidir.<br /><em>Clareza para agir.</em></h2></div><div><p>O diagnóstico completo reúne as tabelas, as fontes e os próximos passos para conduzir a transição com segurança.</p><a class="button button-gold" href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf" target="_blank" rel="noopener">Ler diagnóstico completo</a></div></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-main"><img src="assets/franca-logo.webp" alt="França O Meu Contador — Gestão Empresarial" width="238" height="112" /><div><strong>Diagnóstico Tributário · Grupo Guimarães</strong><p>Conteúdo baseado no relatório corrigido de 23 páginas. Dados disponíveis até 19/11/2026. As projeções são instrumentos de planejamento e devem ser atualizadas conforme a regulamentação.</p></div><a href="#inicio">Voltar ao início</a></div><div class="container footer-bottom"><span>© 2026 França — O Meu Contador</span><span>Material do Grupo Guimarães</span></div></footer>
+  </body>
+</html>
