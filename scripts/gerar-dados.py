@@ -12,9 +12,11 @@ que aparecem como "CNPJ inválido") não são publicados: entram só na contagem
 """
 import json
 import re
+import shutil
 from collections import OrderedDict
 from pathlib import Path
 
+import openpyxl
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -248,9 +250,42 @@ def build_simples(arquivo, destino, global_name, comment):
     return payload
 
 
+# ---------------------------------------------------------------- planilhas para download
+
+PLANILHAS = DIST / 'assets' / 'planilhas'
+
+
+def exportar_planilhas():
+    """Copia as planilhas para o site. Nas de clientes e fornecedores, os CPFs são omitidos."""
+    PLANILHAS.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(FONTES / 'produtos-consulta-lote.xlsx', PLANILHAS / 'guimaraes-produtos-consulta-lote.xlsx')
+    for origem, destino in (('clientes-simples.xlsx', 'guimaraes-clientes-situacao-simples.xlsx'),
+                            ('fornecedores-simples.xlsx', 'guimaraes-fornecedores-situacao-simples.xlsx')):
+        wb = openpyxl.load_workbook(FONTES / origem)
+        ws = wb['Simples']
+        header = [c.value for c in ws[1]]
+        col_doc, col_obs = header.index('CNPJ') + 1, header.index('Observação') + 1
+        omitidos = 0
+        for row in range(2, ws.max_row + 1):
+            digitos = re.sub(r'\D', '', str(ws.cell(row, col_doc).value or ''))
+            obs = ws.cell(row, col_obs).value
+            if obs and digitos.startswith('000') and cpf_valido(digitos[3:]):
+                ws.cell(row, col_doc).value = 'CPF omitido'
+                ws.cell(row, col_obs).value = 'Pessoa física (CPF): número omitido'
+                omitidos += 1
+            elif not obs and digitos.startswith('000') and cpf_valido(digitos[3:]) and int(digitos[8:12]) > 20:
+                ws.cell(row, col_doc).value = 'CPF omitido'
+                ws.cell(row, col_obs).value = ('Pessoa física (CPF) completado com zeros: número omitido. A situação no Simples '
+                                               'desta linha veio de uma empresa com a mesma raiz e não se aplica.')
+                omitidos += 1
+        wb.save(PLANILHAS / destino)
+        print(f'{(PLANILHAS / destino).relative_to(ROOT)}: {omitidos} CPFs omitidos')
+
+
 if __name__ == '__main__':
     build_produtos()
     build_simples('clientes-simples.xlsx', 'clientes-data.js', 'ClientesGuimaraes',
                   'Situação no Simples Nacional dos clientes da Guimarães (Receita Federal, dados abertos do CNPJ).')
     build_simples('fornecedores-simples.xlsx', 'fornecedores-data.js', 'FornecedoresGuimaraes',
                   'Situação no Simples Nacional dos fornecedores da Guimarães (Receita Federal, dados abertos do CNPJ).')
+    exportar_planilhas()

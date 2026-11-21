@@ -143,3 +143,14 @@ fieldset.field{margin:0;padding:0;border:0}
 .topic-body a+a{margin-left:18px}
 .matrix th,.matrix td{padding:10px 8px;font-size:12.5px}.matrix th{white-space:normal;min-width:70px;vertical-align:bottom}.matrix td.strat{white-space:normal;min-width:140px}
 .rates{table-layout:fixed}.rates th,.rates td{padding:5px 1px;font-size:11px}.rates th:first-child,.rates td:first-child{width:38px}.detail-panel{overflow-x:hidden}
+/* planilhas para download */
+.downloads{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.download{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);transition:border-color .2s ease,transform .2s ease}
+.download:hover{border-color:#b48b35;transform:translateY(-2px)}
+.download.atual{border-color:#b48b35;box-shadow:inset 0 0 0 1px #b48b35}
+.download-icon{display:grid;place-items:center;width:44px;height:52px;border-radius:8px 16px 8px 8px;background:#2f6b43;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em}
+.download strong{display:block;font-size:15px;line-height:1.35}.download p{margin:4px 0 8px;color:var(--muted);font-size:13px;line-height:1.55}
+.download span.go{color:#8a6a1f;font-size:12.5px;font-weight:800}.download small{color:var(--muted);font-size:12px;font-weight:600}
+@media(max-width:950px){.downloads{grid-template-columns:1fr}}
+.c-section.alt+.c-section{padding-top:64px}@media(max-width:620px){.c-section.alt+.c-section{padding-top:44px}}
+.consulta-baixar{margin:22px 0 0;color:var(--muted);font-size:13.5px;line-height:1.8}.consulta-baixar a{color:#806226;font-weight:800;text-decoration:underline;text-underline-offset:3px}
