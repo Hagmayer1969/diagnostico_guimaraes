@@ -121,3 +121,125 @@ document.querySelectorAll('.topic').forEach((topic) => {
 });
 
 renderView();
+
+const calculator = window.GuimaraesCalculator;
+const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+const calculatorInputs = {
+  'receita-guimaraes': [document.getElementById('calc-receita-guimaraes')],
+  bases: [document.getElementById('calc-vendas'), document.getElementById('calc-compras')],
+  'receita-grupo': [document.getElementById('calc-receita-grupo')]
+};
+const initialValues = {
+  'calc-receita-guimaraes': '117.217.369,26',
+  'calc-vendas': '98.891.770,61',
+  'calc-compras': '90.276.842,43',
+  'calc-receita-grupo': '124.910.186,03'
+};
+let calculatorMode = 'receita-guimaraes';
+
+function parseCents(text) {
+  const value = text.trim();
+  if (!/^(?:\d+|\d{1,3}(?:\.\d{3})+)(?:,\d{1,2})?$/.test(value)) return null;
+  const [whole, decimal = ''] = value.replaceAll('.', '').split(',');
+  const cents = Number(whole) * 100 + Number(decimal.padEnd(2, '0'));
+  return Number.isSafeInteger(cents) ? cents : null;
+}
+
+function formatCents(cents) {
+  return currencyFormatter.format(cents / 100);
+}
+
+function renderCalculator() {
+  const activeInputs = calculatorInputs[calculatorMode];
+  const values = activeInputs.map((input) => parseCents(input.value));
+  activeInputs.forEach((input, index) => input.setAttribute('aria-invalid', String(values[index] === null)));
+
+  const error = document.getElementById('calculator-error');
+  const comparison = document.getElementById('calculator-comparison');
+  const rows = document.getElementById('calculator-rows');
+  if (values.includes(null)) {
+    error.textContent = 'Informe um valor válido em reais, com até duas casas decimais. Exemplo: 120.000.000,00';
+    error.hidden = false;
+    document.getElementById('calc-result-2027').textContent = '—';
+    document.getElementById('calc-result-2033').textContent = '—';
+    comparison.textContent = 'Aguardando valores válidos para calcular o cenário.';
+    comparison.classList.remove('warning');
+    rows.replaceChildren();
+    return;
+  }
+
+  error.hidden = true;
+  let result;
+  try {
+    result = calculator.calculate(calculatorMode, calculatorMode === 'bases'
+      ? { vendas: values[0], compras: values[1] }
+      : { receita: values[0] });
+  } catch (cause) {
+    error.textContent = cause.message;
+    error.hidden = false;
+    return;
+  }
+
+  document.getElementById('calculator-premise').textContent = result.premise;
+  document.getElementById('calculator-scope').textContent = calculatorMode === 'receita-grupo' ? 'Grupo consolidado' : 'Guimarães';
+  document.getElementById('calc-result-2027').textContent = formatCents(result.years[0].scenario);
+  document.getElementById('calc-result-2033').textContent = formatCents(result.years[6].scenario);
+
+  const difference2027 = result.years[0].difference;
+  comparison.classList.toggle('warning', result.requiresFiscalReview);
+  if (result.requiresFiscalReview) {
+    comparison.textContent = 'Este cenário pode gerar saldo credor ou total negativo. O diagnóstico não modela sua compensação; é necessária revisão fiscal.';
+  } else if (result.years.every((year) => year.difference === 0)) {
+    comparison.textContent = 'Com os valores originais, o cenário reproduz os totais publicados no relatório.';
+  } else {
+    const change = difference2027 === 0 ? 'sem diferença' : `${difference2027 > 0 ? 'acima' : 'abaixo'} do relatório em ${formatCents(Math.abs(difference2027))}`;
+    comparison.textContent = `Em 2027, o cenário fica ${change}. Confira as premissas antes de usar o resultado para decidir.`;
+  }
+
+  rows.replaceChildren();
+  result.years.forEach((year) => {
+    const row = document.createElement('tr');
+    const columns = [String(year.year), formatCents(year.published), formatCents(year.scenario), year.difference === 0 ? '—' : `${year.difference > 0 ? '+' : '−'} ${formatCents(Math.abs(year.difference))}`];
+    columns.forEach((content, index) => {
+      const cell = document.createElement(index === 0 ? 'th' : 'td');
+      if (index === 0) cell.scope = 'row';
+      cell.textContent = content;
+      if (index === 2) cell.className = 'scenario-value';
+      if (index === 3 && year.difference !== 0) cell.className = year.difference > 0 ? 'positive' : 'negative';
+      row.append(cell);
+    });
+    rows.append(row);
+  });
+}
+
+document.querySelectorAll('[data-calc-mode]').forEach((button) => {
+  button.addEventListener('click', () => {
+    calculatorMode = button.dataset.calcMode;
+    document.querySelectorAll('[data-calc-mode]').forEach((modeButton) => {
+      const active = modeButton.dataset.calcMode === calculatorMode;
+      modeButton.classList.toggle('active', active);
+      modeButton.setAttribute('aria-pressed', String(active));
+    });
+    document.querySelectorAll('[data-calc-panel]').forEach((panel) => {
+      panel.hidden = panel.dataset.calcPanel !== calculatorMode;
+    });
+    Object.values(calculatorInputs).flat().forEach((input) => input.removeAttribute('aria-invalid'));
+    renderCalculator();
+  });
+});
+
+Object.values(calculatorInputs).flat().forEach((input) => {
+  input.addEventListener('input', renderCalculator);
+  input.addEventListener('blur', () => {
+    const cents = parseCents(input.value);
+    if (cents !== null) input.value = (cents / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    renderCalculator();
+  });
+});
+
+document.getElementById('calculator-reset').addEventListener('click', () => {
+  for (const [id, value] of Object.entries(initialValues)) document.getElementById(id).value = value;
+  renderCalculator();
+});
+
+renderCalculator();

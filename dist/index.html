@@ -8,6 +8,7 @@
     <title>Diagnóstico Tributário | Grupo Guimarães — França O Meu Contador</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
+    <script defer src="calculator-model.js"></script>
     <script defer src="app.js"></script>
   </head>
   <body>
@@ -114,7 +115,7 @@
         <div class="container">
           <div class="section-heading split-heading">
             <div><p class="eyebrow">2027 → 2033</p><h2 id="projection-title">A transição em números</h2></div>
-            <p>Selecione uma visão e um ano. Os valores mostram a carga anual sobre consumo, mantendo a operação do período analisado como base da simulação.</p>
+            <p>Selecione uma visão e um ano para examinar os valores publicados. A calculadora abaixo permite testar outros valores com premissas explícitas.</p>
           </div>
           <div class="projection-shell">
             <div class="projection-main">
@@ -135,6 +136,51 @@
             </aside>
           </div>
           <p class="source-note">* A receita consolidada inclui R$ 7.376.596,28 faturados entre empresas do grupo. Projeções usam alíquotas de referência do relatório, sujeitas a confirmação.</p>
+
+          <div class="calculator" id="calculadora" aria-labelledby="calculator-title">
+            <div class="calculator-heading">
+              <div><p class="eyebrow">CENÁRIOS COM BASE NO RELATÓRIO</p><h3 id="calculator-title">Simule outro valor</h3></div>
+              <p>Escolha o que deseja alterar. O cenário parte dos números publicados no diagnóstico e mostra a diferença em cada ano da transição.</p>
+            </div>
+            <div class="calculator-source-alert"><strong>Nota sobre a base do relatório.</strong> A correção da base histórica de crédito não foi acompanhada de um recálculo das projeções no PDF. Esta calculadora reproduz os totais publicados e simula variações sobre eles; os resultados devem ser revisados pela equipe fiscal antes de orientar uma decisão.</div>
+            <div class="calculator-modes" role="group" aria-label="Tipo de cenário">
+              <button class="calculator-mode active" type="button" data-calc-mode="receita-guimaraes" aria-pressed="true">Receita da Guimarães</button>
+              <button class="calculator-mode" type="button" data-calc-mode="bases" aria-pressed="false">Vendas e compras</button>
+              <button class="calculator-mode" type="button" data-calc-mode="receita-grupo" aria-pressed="false">Receita do grupo</button>
+            </div>
+            <div class="calculator-layout">
+              <div class="calculator-inputs">
+                <div class="calculator-fields" data-calc-panel="receita-guimaraes">
+                  <label for="calc-receita-guimaraes">Receita bruta anual da Guimarães</label>
+                  <div class="money-input"><span>R$</span><input id="calc-receita-guimaraes" type="text" inputmode="decimal" autocomplete="off" value="117.217.369,26" aria-describedby="hint-receita-guimaraes" /></div>
+                  <p class="field-hint" id="hint-receita-guimaraes">Relatório: R$ 117.217.369,26. O novo cenário mantém a mesma composição de vendas, compras e tributos.</p>
+                </div>
+                <div class="calculator-fields" data-calc-panel="bases" hidden>
+                  <label for="calc-vendas">Base anual de vendas para CBS/IBS</label>
+                  <div class="money-input"><span>R$</span><input id="calc-vendas" type="text" inputmode="decimal" autocomplete="off" value="98.891.770,61" aria-describedby="hint-vendas" /></div>
+                  <p class="field-hint" id="hint-vendas">Relatório, p. 12: vendas sem ICMS e IPI.</p>
+                  <label for="calc-compras">Base anual de compras com crédito na Reforma</label>
+                  <div class="money-input"><span>R$</span><input id="calc-compras" type="text" inputmode="decimal" autocomplete="off" value="90.276.842,43" aria-describedby="hint-compras" /></div>
+                  <p class="field-hint" id="hint-compras">Relatório, p. 12: base projetada de crédito para CBS/IBS. Não é a base histórica de PIS/COFINS.</p>
+                </div>
+                <div class="calculator-fields" data-calc-panel="receita-grupo" hidden>
+                  <label for="calc-receita-grupo">Receita bruta anual das cinco empresas</label>
+                  <div class="money-input"><span>R$</span><input id="calc-receita-grupo" type="text" inputmode="decimal" autocomplete="off" value="124.910.186,03" aria-describedby="hint-receita-grupo" /></div>
+                  <p class="field-hint" id="hint-receita-grupo">Relatório: R$ 124.910.186,03, incluindo faturamento entre empresas. A participação de cada empresa permanece igual à base.</p>
+                </div>
+                <p class="calculator-error" id="calculator-error" role="alert" hidden></p>
+                <button class="calculator-reset" type="button" id="calculator-reset">Restaurar valores do relatório</button>
+                <div class="calculator-premise" id="calculator-premise">Cenário proporcional: a receita informada altera a carga publicada na mesma proporção. Custos, créditos e perfil de operação permanecem constantes.</div>
+              </div>
+              <div class="calculator-output">
+                <div class="calculator-output-head"><span>CENÁRIO CALCULADO</span><strong id="calculator-scope">Guimarães</strong></div>
+                <div class="calculator-highlights"><div><span>2027</span><strong id="calc-result-2027">R$ 6.471.771,88</strong></div><div><span>2033</span><strong id="calc-result-2033">R$ 2.498.329,17</strong></div></div>
+                <p class="calculator-comparison" id="calculator-comparison" role="status" aria-live="polite">Com os valores originais, o cenário reproduz os totais publicados no relatório.</p>
+                <div class="calculator-table-wrap"><table class="calculator-table"><caption>Comparação anual entre o relatório e o cenário informado</caption><thead><tr><th scope="col">Ano</th><th scope="col">Relatório</th><th scope="col">Seu cenário</th><th scope="col">Diferença</th></tr></thead><tbody id="calculator-rows"></tbody></table></div>
+              </div>
+            </div>
+            <details class="calculator-method"><summary>Como esta calculadora funciona e quais são seus limites</summary><div><p><strong>Receita da Guimarães e receita do grupo:</strong> cada total anual publicado é multiplicado pela razão entre a nova receita e a receita do período-base. É uma hipótese proporcional; não refaz a apuração fiscal nem altera o mix de produtos, empresas ou fornecedores.</p><p><strong>Vendas e compras:</strong> a calculadora parte dos totais publicados e aplica a variação da base líquida às alíquotas de CBS/IBS usadas no relatório: 11,3% em 2027–2028; 13,07%, 14,84%, 16,61% e 18,38% de 2029 a 2032; 29,0% em 2033. ICMS e demais parcelas permanecem como publicados. O PRODEC não entra nesta carga.</p><p><strong>Atenção à fonte:</strong> a base histórica de compras com crédito de PIS/COFINS foi corrigida para R$ 83.313.864,85 no PDF, mas essa alteração não reconcilia aritmeticamente com a base projetada de R$ 90.276.842,43 e os totais que permaneceram na simulação. Por isso, a ferramenta conserva os totais publicados como referência e não reconstrói a projeção a partir da base histórica. Os cenários exigem revisão fiscal antes de apoiar decisões.</p><a href="assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf#page=23" target="_blank" rel="noopener">Conferir memória de cálculo no PDF</a></div></details>
+          </div>
         </div>
       </section>
 
