@@ -310,7 +310,7 @@ PLANILHAS = DIST / 'assets' / 'planilhas'
 def exportar_planilhas():
     """Copia as planilhas para o site. Nas de clientes e fornecedores, os CPFs são omitidos."""
     PLANILHAS.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(FONTES / 'produtos-consulta-lote.xlsx', PLANILHAS / 'guimaraes-produtos-consulta-lote.xlsx')
+    shutil.copyfile(FONTES / REVISAO, PLANILHAS / 'guimaraes-produtos-revisao-reducoes.xlsx')
     for origem, destino in ((CLIENTES, 'guimaraes-clientes-situacao-simples.xlsx'),
                             (FORNECEDORES, 'guimaraes-fornecedores-situacao-simples.xlsx')):
         wb = openpyxl.load_workbook(FONTES / origem)
