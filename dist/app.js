@@ -3,39 +3,39 @@ const reportUrl = 'assets/Diagnostico_Guimaraes_v59_CORRIGIDO.pdf';
 const views = {
   guimaraes: {
     name: 'Guimarães',
-    values: [6.61060866, 6.47177188, 6.47177188, 6.07442761, 5.67708334, 5.27973907, 4.88239480, 2.49832917],
-    changes: ['Base do período analisado', '−2,1% em relação a hoje', '−2,1% em relação a hoje', '−8,1% em relação a hoje', '−14,1% em relação a hoje', '−20,1% em relação a hoje', '−26,1% em relação a hoje', '−62,2% em relação a hoje'],
+    values: [6.61060866, 6.67473277, 6.67473277, 6.31082503, 5.94691730, 5.58300956, 5.21910182, 3.03565540],
+    changes: ['Base do período analisado', '+1,0% em relação a hoje', '+1,0% em relação a hoje', '−4,5% em relação a hoje', '−10,0% em relação a hoje', '−15,5% em relação a hoje', '−21,0% em relação a hoje', '−54,1% em relação a hoje'],
     descriptions: [
       'Base de 12 meses: ICMS apurado, PIS/COFINS e IPI. O PRODEC é tratado separadamente como saída de caixa.',
-      'A CBS substitui PIS/COFINS, enquanto o ICMS permanece integral. A carga projetada fica próxima da atual.',
-      'A CBS e o IBS seguem a primeira fase da transição; o ICMS continua integral.',
+      'A CBS substitui PIS/COFINS, enquanto o ICMS permanece integral. A carga projetada fica um pouco acima da atual.',
+      'Igual a 2027: a CBS segue no lugar de PIS/COFINS, o IBS ainda é tratado como 0 e o ICMS continua integral.',
       'O ICMS cai para 90% e o IBS entra com 10% da alíquota plena estimada.',
       'O ICMS cai para 80% e o IBS passa a 20% da alíquota plena estimada.',
       'O ICMS cai para 70% e o IBS passa a 30% da alíquota plena estimada.',
       'O ICMS cai para 60% e o IBS passa a 40% da alíquota plena estimada.',
-      'O ICMS é extinto na simulação; permanecem CBS e IBS, com crédito sobre uma base mais ampla de compras.'
+      'O ICMS é extinto na simulação; permanecem CBS e IBS. O IBS pleno é mais baixo que o ICMS que ele substitui.'
     ],
-    hero: ['R$ 6,61 mi', 'R$ 6,47 mi', 'R$ 2,50 mi'],
-    insight: 'Na Guimarães, a queda projetada em 2033 é de 62,2% frente à base atual.',
+    hero: ['R$ 6,61 mi', 'R$ 6,67 mi', 'R$ 3,04 mi'],
+    insight: 'Na Guimarães, a queda projetada em 2033 é de 54,1% frente à base atual.',
     note: 'Projeção para a Guimarães: ICMS, PIS/COFINS e IPI hoje; ICMS, CBS e IBS nos anos seguintes.',
     page: 13
   },
   grupo: {
     name: 'Grupo consolidado',
-    values: [7.64338413, 8.18923569, 8.18923569, 7.89502698, 7.60851109, 7.32199520, 7.03547930, 5.31638394],
-    changes: ['Base do período analisado', '+7,1% em relação a hoje', '+7,1% em relação a hoje', '+3,3% em relação a hoje', '−0,5% em relação a hoje', '−4,2% em relação a hoje', '−8,0% em relação a hoje', '−30,4% em relação a hoje'],
+    values: [7.64338413, 8.39219658, 8.39219658, 8.13142440, 7.87834505, 7.62526569, 7.37218632, 5.85371017],
+    changes: ['Base do período analisado', '+9,8% em relação a hoje', '+9,8% em relação a hoje', '+6,4% em relação a hoje', '+3,1% em relação a hoje', '−0,2% em relação a hoje', '−3,5% em relação a hoje', '−23,4% em relação a hoje'],
     descriptions: [
       'Soma da carga sobre consumo da Guimarães e do DAS das outras quatro empresas no período analisado.',
       'As quatro empresas do Simples Híbrido projetam aumento de carga; o grupo, somado, fica acima da base atual.',
       'A carga consolidada permanece no patamar projetado para 2027.',
       'O início da redução do ICMS aproxima a carga do grupo do nível atual.',
+      'A substituição gradual do ICMS pelo IBS continua aproximando a carga do grupo do nível atual.',
       'A projeção consolidada passa ligeiramente abaixo da base atual.',
-      'A substituição gradual do ICMS pelo IBS amplia a redução projetada para o grupo.',
       'O grupo continua a reduzir a carga projetada ao longo da transição.',
-      'Com o IBS pleno estimado, a carga consolidada projetada fica 30,4% abaixo da base atual.'
+      'Com o IBS pleno estimado, a carga consolidada projetada fica 23,4% abaixo da base atual.'
     ],
-    hero: ['R$ 7,64 mi', 'R$ 8,19 mi', 'R$ 5,32 mi'],
-    insight: 'No grupo consolidado, a carga sobe 7,1% em 2027 e cai 30,4% até 2033.',
+    hero: ['R$ 7,64 mi', 'R$ 8,39 mi', 'R$ 5,85 mi'],
+    insight: 'No grupo consolidado, a carga sobe 9,8% em 2027 e cai 23,4% até 2033.',
     note: 'Grupo consolidado: Guimarães e as outras quatro empresas. O efeito do Simples Híbrido muda a leitura de 2027.',
     page: 14
   }
@@ -132,7 +132,7 @@ const calculatorInputs = {
 const initialValues = {
   'calc-receita-guimaraes': '117.217.369,26',
   'calc-vendas': '98.891.770,61',
-  'calc-compras': '90.276.842,43',
+  'calc-compras': '88.387.772,68',
   'calc-receita-grupo': '124.910.186,03'
 };
 let calculatorMode = 'receita-guimaraes';

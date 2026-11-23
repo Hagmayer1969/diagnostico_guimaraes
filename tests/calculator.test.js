@@ -11,17 +11,17 @@ test('os valores originais reproduzem os totais anuais publicados', () => {
   for (const result of scenarios) {
     assert.deepEqual(result.years.map((year) => year.difference), Array(7).fill(0));
   }
-  assert.equal(scenarios[0].years[0].scenario, 647177188);
-  assert.equal(scenarios[0].years[6].scenario, 249832917);
-  assert.equal(scenarios[2].years[0].scenario, 818923569);
-  assert.equal(scenarios[2].years[6].scenario, 531638394);
+  assert.equal(scenarios[0].years[0].scenario, 667473277);
+  assert.equal(scenarios[0].years[6].scenario, 303565540);
+  assert.equal(scenarios[2].years[0].scenario, 839219658);
+  assert.equal(scenarios[2].years[6].scenario, 585371017);
 });
 
 test('cenário de receita aplica a proporção sem alterar o ponto de partida', () => {
   const result = calculate('receita-guimaraes', { receita: BASE.receitaGuimaraes * 2 });
   assert.equal(result.years[0].scenario, BASE.guimaraes[0] * 2);
   assert.equal(result.years[6].scenario, BASE.guimaraes[6] * 2);
-  assert.equal(BASE.guimaraes[0], 647177188);
+  assert.equal(BASE.guimaraes[0], 667473277);
 });
 
 test('alteração de bases afeta apenas o IVA pelas alíquotas anuais do relatório', () => {
@@ -29,21 +29,22 @@ test('alteração de bases afeta apenas o IVA pelas alíquotas anuais do relató
     vendas: BASE.vendasCBSIBS + 10000000,
     compras: BASE.comprasCBSIBS
   });
-  assert.equal(plusOneHundredThousand.years[0].difference, 1130000);
-  assert.equal(plusOneHundredThousand.years[2].difference, 1307000);
-  assert.equal(plusOneHundredThousand.years[6].difference, 2900000);
+  assert.equal(plusOneHundredThousand.years[0].difference, 1120000);
+  assert.equal(plusOneHundredThousand.years[2].difference, 1297000);
+  assert.equal(plusOneHundredThousand.years[6].difference, 2890000);
 
   const extraPurchases = calculate('bases', {
     vendas: BASE.vendasCBSIBS,
     compras: BASE.comprasCBSIBS + 10000000
   });
-  assert.equal(extraPurchases.years[0].difference, -1130000);
+  assert.equal(extraPurchases.years[0].difference, -1120000);
 });
 
-test('a base líquida publicada reproduz o IVA de 2027', () => {
+test('a base líquida publicada reproduz o IVA de 2027 e 2033 (p. 12)', () => {
   const net = BASE.vendasCBSIBS - BASE.comprasCBSIBS;
-  assert.equal(net, 861492818);
-  assert.equal(Math.round(net * 1130 / 10000), 97348688);
+  assert.equal(net, 1050399793);
+  assert.equal(Math.round(net * 1120 / 10000), 117644777);
+  assert.equal(Math.round(net * 1770 / 10000), 185920763);
 });
 
 test('rejeita valores inválidos', () => {

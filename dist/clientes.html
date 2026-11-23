@@ -109,7 +109,7 @@
             </table>
           </div>
           <button type="button" class="link-button more" id="cnpj-more" hidden>Mostrar mais</button>
-          <p class="c-note">Fonte: Dados Abertos do CNPJ da Receita Federal (arquivo do Simples), consulta de 13/11/2026 sobre a base de 10/2026. A planilha marca 833 documentos como CNPJ inválido (831 são CPFs). Outros <strong>54 registros</strong> aparecem como CNPJ válido, mas são CPFs completados com zeros (raiz 000… e "filial" inexistente, como 4069); a consulta cruzou essas raízes com empresas do Simples. Aqui eles contam como pessoa física, por isso os totais diferem da planilha (2.107 optantes e 3.063 não optantes). A opção pelo Simples vale para a empresa inteira (raiz do CNPJ). "Nunca optou" indica Lucro Presumido ou Real, mas também pode ser empresa inativa, cooperativa ou órgão público.</p>
+          <p class="c-note">Fonte: Dados Abertos do CNPJ da Receita Federal (arquivo do Simples), consulta de 13/11/2026 sobre a base de 10/2026. A planilha identifica 831 CPFs gravados no campo de CNPJ (pessoa física) e 2 documentos inválidos. Outros <strong>54 registros</strong> aparecem como CNPJ válido, mas são CPFs completados com zeros (raiz 000… e "filial" inexistente, como 4069); a consulta cruzou essas raízes com empresas do Simples. Aqui eles contam como pessoa física, por isso os totais diferem da planilha (2.107 optantes e 3.063 não optantes). Dos optantes, 133 já têm exclusão registrada para 31/12/2026 (11 MEI com desenquadramento na mesma data) e passam a não optantes a partir de 01/01/2027. A opção pelo Simples vale para a empresa inteira (raiz do CNPJ). "Nunca optou" indica Lucro Presumido ou Real, mas também pode ser empresa inativa, cooperativa ou órgão público.</p>
         </div>
       </section>
 
@@ -129,7 +129,7 @@
                 </div>
                 <div class="field-row">
                   <label class="field"><span>ICMS (%)</span><input type="number" step="0.1" min="0" max="40" data-k="icms" value="12" /></label>
-                  <label class="field"><span>PIS/COFINS no preço (%)</span><input type="number" step="0.01" min="0" data-k="pisCofins" value="8.14" /></label>
+                  <label class="field"><span>PIS/COFINS no preço (%)</span><input type="number" step="0.01" min="0" data-k="pisCofins" value="9.25" /></label>
                 </div>
                 <div class="field-row">
                   <label class="field"><span>Custo do produto (R$)</span><input type="number" step="0.01" min="0" data-k="cpv" value="5.00" /></label>
@@ -181,10 +181,10 @@
           </div>
           <div class="downloads">
             <a class="download" href="assets/planilhas/guimaraes-produtos-consulta-lote.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Consulta em lote dos produtos</strong><p>Abas ENTRADAS, RESULTADO e IMUNIDADE: 2.829 produtos, alíquotas de 2026 a 2033.</p><span class="go">Baixar planilha</span> <small>· 4,8 MB</small></span></a>
-            <a class="download atual" href="assets/planilhas/guimaraes-clientes-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos clientes</strong><p>6.003 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 205 KB · base desta página</small></span></a>
-            <a class="download" href="assets/planilhas/guimaraes-fornecedores-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos fornecedores</strong><p>3.273 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 117 KB</small></span></a>
+            <a class="download atual" href="assets/planilhas/guimaraes-clientes-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos clientes</strong><p>6.003 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 457 KB · base desta página</small></span></a>
+            <a class="download" href="assets/planilhas/guimaraes-fornecedores-situacao-simples.xlsx" download><span class="download-icon" aria-hidden="true">XLSX</span><span><strong>Situação no Simples dos fornecedores</strong><p>3.273 cadastros consultados na Receita Federal (base 10/2026).</p><span class="go">Baixar planilha</span> <small>· 319 KB</small></span></a>
           </div>
-          <p class="c-note">Nas planilhas de clientes e fornecedores, os números de CPF (pessoas físicas) foram substituídos por "CPF omitido"; as demais linhas e a aba "Sobre a base" estão como vieram da consulta.</p>
+          <p class="c-note">Nas planilhas de clientes e fornecedores, os números de CPF (pessoas físicas) foram substituídos por "CPF omitido"; as demais linhas e a aba "Resumo" estão como vieram da consulta.</p>
         </div>
       </section>
     </main>

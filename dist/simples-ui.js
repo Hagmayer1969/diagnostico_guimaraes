@@ -81,7 +81,8 @@
     let atual = [];
 
     function situacao(l) {
-      if (l.sit === 'O') return `Optante desde ${l.opcao}${l.mei ? ' · MEI' : ''}`;
+      // Optante com exclusão já registrada (31/12/2026 na base 10/2026): deixa de ser optante no dia seguinte.
+      if (l.sit === 'O') return `Optante desde ${l.opcao}${l.mei ? ' · MEI' : ''}${l.exclusao ? ` · exclusão em ${l.exclusao}` : ''}`;
       if (l.sit === 'X') return `Não optante · saiu em ${l.exclusao}`;
       return 'Nunca optou pelo Simples';
     }
@@ -122,7 +123,7 @@
       }
       tbody.innerHTML = atual.slice(0, limite).map((l) => l.faltando
         ? `<tr class="miss"><td class="cnpj">${cnpjMask(l.cnpj)}</td><td colspan="4">Não está na planilha de ${cfg.nome}</td></tr>`
-        : `<tr><td class="cnpj">${cnpjMask(l.cnpj)}</td><td>${esc(situacao(l))}</td><td>${l.mei ? `Sim, desde ${esc(l.opcaoMei)}` : l.exclusaoMei ? `Saiu em ${esc(l.exclusaoMei)}` : 'Não'}</td><td>${l.cnpj.slice(8, 12) === '0001' ? 'Matriz' : 'Filial'}</td><td><span class="tag ${tagClass(l)}">${esc(reforma(l))}</span></td></tr>`).join('');
+        : `<tr><td class="cnpj">${cnpjMask(l.cnpj)}</td><td>${esc(situacao(l))}</td><td>${l.mei ? `Sim, desde ${esc(l.opcaoMei)}${l.exclusaoMei ? ` · desenquadramento em ${esc(l.exclusaoMei)}` : ''}` : l.exclusaoMei ? `Saiu em ${esc(l.exclusaoMei)}` : 'Não'}</td><td>${l.cnpj.slice(8, 12) === '0001' ? 'Matriz' : 'Filial'}</td><td><span class="tag ${tagClass(l)}">${esc(reforma(l))}</span></td></tr>`).join('');
       more.hidden = atual.length <= limite;
       more.textContent = `Mostrar mais ${Math.min(PAGE, atual.length - limite)} de ${fmt.int(atual.length - limite)}`;
     }

@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """Gera os arquivos de dados do site a partir das planilhas em fontes/.
 
-  fontes/produtos-consulta-lote.xlsx   -> dist/produtos-data.js
-  fontes/clientes-simples.xlsx         -> dist/clientes-data.js
-  fontes/fornecedores-simples.xlsx     -> dist/fornecedores-data.js
+  fontes/produtos-consulta-lote.xlsx               -> dist/produtos-data.js
+  fontes/produtos-revisao-reducoes-11-2026.xlsx    -> dist/produtos-data.js (revisão item a item)
+  fontes/clientes-simples-11-2026.xlsx             -> dist/clientes-data.js
+  fontes/fornecedores-simples-11-2026.xlsx         -> dist/fornecedores-data.js
 
 Uso: python3 scripts/gerar-dados.py
 
-Os valores são transcritos das planilhas sem recalcular alíquotas. CPFs (pessoas físicas
-que aparecem como "CNPJ inválido") não são publicados: entram só na contagem.
+Os valores são transcritos das planilhas sem recalcular alíquotas. CPFs (pessoas físicas,
+tipo "PF" na planilha) não são publicados: entram só na contagem.
 """
 import json
 import re
 import shutil
 from collections import OrderedDict
+from datetime import datetime
 from pathlib import Path
 
 import openpyxl
@@ -25,14 +27,26 @@ DIST = ROOT / 'dist'
 
 # Apontamentos do diagnóstico (seção 4, p. 7 do PDF).
 AGUA_SANITARIA_VENDIDA = {'585', '586', '587', '611'}
-AGUA_SANITARIA_INTERNA = '513'
+AGUA_SANITARIA_GRANEL = '513'
 NCM_PROVAVELMENTE_ERRADO = {'607', '580'}  # amaciante e lava-auto no NCM de desinfetantes
 NCM_DESINFETANTES = '38089419'
+
+# Revisão das reduções de IBS e CBS (nov/2026), aba "Por produto".
+REVISAO = 'produtos-revisao-reducoes-11-2026.xlsx'
+# Itens da tabela "Água sanitária: onde está a redução" (aba Resumo da revisão).
+REVISAO_AGUA_SANITARIA = {'513', '585', '586', '587', '611', '537', '593', '591', '609', '610', '612'}
+# Observações em que a revisão manda corrigir ou conferir a NCM no cadastro.
+REVISAO_NCM = re.compile(r'NCM errada|[Rr]evisar (a )?NCM|conferir a classificação|[Cc]onferir também a NCM|NCM .* inadequada')
+
+CLIENTES = 'clientes-simples-11-2026.xlsx'
+FORNECEDORES = 'fornecedores-simples-11-2026.xlsx'
 
 
 def clean(value):
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return ''
+    if isinstance(value, datetime):
+        return value.strftime('%d/%m/%Y')
     return re.sub(r'\s+', ' ', str(value)).strip()
 
 
@@ -84,6 +98,7 @@ def build_produtos():
     entradas = sheets['ENTRADAS']
     resultado = sheets['RESULTADO'].fillna('')
     imunidade = sheets['IMUNIDADE'].fillna('')
+    revisao = pd.read_excel(FONTES / REVISAO, sheet_name='Por produto', dtype=str).fillna('')
 
     anos = sorted(resultado['ANO TRANSICAO'].unique())
     texts = Strings()
@@ -139,6 +154,12 @@ def build_produtos():
         if item not in lista:
             lista.append(item)
 
+    # Revisão item a item: [tratamento, CST, cClassTrib, observação] (textos por índice).
+    revisados = {}
+    for _, row in revisao.iterrows():
+        codigo = clean(row['Código'])
+        revisados[codigo] = [texts(row['Tratamento']), clean(row['CST']), clean(row['cClassTrib']), texts(row['Observação'])]
+
     produtos = []
     for _, row in entradas.iterrows():
         codigo = clean(row['CODIGO PRODUTO'])
@@ -151,10 +172,10 @@ def build_produtos():
             flags.append('diag-agua')
         elif codigo in NCM_PROVAVELMENTE_ERRADO:
             flags.append('diag-ncm')
-        elif ncm == NCM_DESINFETANTES and codigo != AGUA_SANITARIA_INTERNA:
+        elif ncm == NCM_DESINFETANTES and codigo != AGUA_SANITARIA_GRANEL:
             flags.append('diag-desinf')
-        if codigo == AGUA_SANITARIA_INTERNA:
-            flags.append('diag-interna')
+        if codigo == AGUA_SANITARIA_GRANEL:
+            flags.append('diag-granel')
         if any(opcoes[i]['cst'] != '000' for i in ids):
             flags.append('alternativa')
         textos_alerta = ' '.join(texts.items[a] for i in ids for a in opcoes[i].get('alertas', []) + [opcoes[i].get('alertaCst')] if a is not None)
@@ -164,14 +185,25 @@ def build_produtos():
             flags.append('destinacao')
         if codigo in imun:
             flags.append('imunidade')
+        if codigo in revisados:
+            flags.append('revisado')
+            if REVISAO_NCM.search(texts.items[revisados[codigo][3]] if revisados[codigo][3] is not None else ''):
+                flags.append('rev-ncm')
+            if codigo in REVISAO_AGUA_SANITARIA:
+                flags.append('rev-agua')
         produto = [codigo, clean(row['DESCRICAO']), ncm, ids, flags]
         if codigo in imun:
             produto.append(imun[codigo])
         produtos.append(produto)
 
+    faltando = set(revisados) - {p[0] for p in produtos}
+    if faltando:
+        raise ValueError(f'Produtos da revisão fora da consulta em lote: {sorted(faltando)}')
+
     payload = {
         'meta': {
             'fonte': 'Consulta em lote da Reforma Tributária (planilha 2986787847)',
+            'revisao': 'Revisão das reduções de IBS e CBS (novembro de 2026)',
             'anos': [int(a) for a in anos],
             'ufOrigem': clean(entradas['UFS ORIGEM'].iloc[0]),
             'ufDestino': clean(entradas['UFS DESTINO'].iloc[0]).split(','),
@@ -180,10 +212,11 @@ def build_produtos():
         'perfis': perfis,
         'opcoes': opcoes,
         'produtos': produtos,
+        'revisao': revisados,
         'textos': texts.items,
     }
     write_module(DIST / 'produtos-data.js', 'ProdutosGuimaraes', payload,
-                 'Classificação de IBS/CBS por produto, transcrita da consulta em lote (abas ENTRADAS, RESULTADO e IMUNIDADE).')
+                 'Classificação de IBS/CBS por produto, transcrita da consulta em lote (abas ENTRADAS, RESULTADO e IMUNIDADE) e da revisão das reduções (aba Por produto).')
     return payload
 
 
@@ -199,29 +232,48 @@ def cpf_valido(digitos):
     return True
 
 
+def cpf_aparente(digitos):
+    """CPF completado com zeros que, por coincidência, passa no dígito do CNPJ.
+
+    A "filial" (ex.: 4069) não existe e a raiz 000… pode cruzar com uma empresa real do Simples.
+    """
+    return len(digitos) == 14 and digitos.startswith('000') and cpf_valido(digitos[3:]) and int(digitos[8:12]) > 20
+
+
+def resumo_simples(arquivo):
+    """Lê a aba Resumo: pares Item/Valor de "Sobre a consulta" e os avisos de "Atenção"."""
+    ws = openpyxl.load_workbook(FONTES / arquivo, read_only=True)['Resumo']
+    info, atencao, bloco = {}, [], None
+    for a, b, *_ in ws.iter_rows(values_only=True):
+        a, b = clean(a), clean(b)
+        if a in ('Sobre a consulta', 'Atenção', 'Quantidades'):
+            bloco = a
+        elif bloco == 'Sobre a consulta' and a and b:
+            info[a] = b
+        elif bloco == 'Atenção' and a.startswith('•'):
+            atencao.append(a.lstrip('• ').strip())
+    return info, atencao
+
+
 def build_simples(arquivo, destino, global_name, comment):
-    df = pd.read_excel(FONTES / arquivo, sheet_name='Simples', dtype=str).fillna('')
-    sobre = pd.read_excel(FONTES / arquivo, sheet_name='Sobre a base', dtype=str).fillna('')
-    info = {clean(r['Item']): clean(r['Valor']) for _, r in sobre.iterrows() if clean(r['Item']) != 'Atenção'}
-    atencao = [clean(r['Valor']) for _, r in sobre.iterrows() if clean(r['Item']) == 'Atenção']
+    df = pd.read_excel(FONTES / arquivo, sheet_name='Situação', dtype=object)
+    info, atencao = resumo_simples(arquivo)
 
     linhas, cpfs, cpfs_aparentes, invalidos = [], 0, 0, 0
     for _, row in df.iterrows():
-        digitos = re.sub(r'\D', '', row['CNPJ'])
-        if not row['Observação'] and digitos.startswith('000') and cpf_valido(digitos[3:]) and int(digitos[8:12]) > 20:
-            # CPF completado com zeros que, por coincidência, passa no dígito do CNPJ. A "filial"
-            # (ex.: 4069) não existe e a raiz 000… pode cruzar com uma empresa real do Simples.
+        digitos = re.sub(r'\D', '', clean(row['CNPJ / CPF']))
+        situacao = clean(row['Situação no Simples'])
+        if clean(row['Tipo']) == 'PF':
+            # CPF gravado no campo de CNPJ: não publicamos o número.
+            cpfs += 1
+            continue
+        if situacao == 'Documento inválido':
+            invalidos += 1
+            continue
+        if cpf_aparente(digitos):
             cpfs_aparentes += 1
             continue
-        if row['Observação']:
-            # "CNPJ inválido": na prática são CPFs completados com zeros. Não publicamos o número.
-            if digitos.startswith('000') and cpf_valido(digitos[3:]):
-                cpfs += 1
-            else:
-                invalidos += 1
-            continue
-        situacao = clean(row['Situação no Simples'])
-        if row['Optante Simples'] == 'Sim':
+        if clean(row['Optante']) == 'Sim':
             codigo = 'O'
         elif situacao.startswith('Não optante'):
             codigo = 'X'
@@ -230,7 +282,7 @@ def build_simples(arquivo, destino, global_name, comment):
         else:
             raise ValueError(f'Situação desconhecida: {situacao!r}')
         linhas.append([digitos, codigo, clean(row['Data opção Simples']), clean(row['Data exclusão Simples']),
-                       1 if row['MEI'] == 'Sim' else 0, clean(row['Data opção MEI']), clean(row['Data exclusão MEI'])])
+                       1 if clean(row['MEI']) == 'Sim' else 0, clean(row['Data opção MEI']), clean(row['Data exclusão MEI'])])
 
     payload = {
         'meta': {
@@ -259,21 +311,19 @@ def exportar_planilhas():
     """Copia as planilhas para o site. Nas de clientes e fornecedores, os CPFs são omitidos."""
     PLANILHAS.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(FONTES / 'produtos-consulta-lote.xlsx', PLANILHAS / 'guimaraes-produtos-consulta-lote.xlsx')
-    for origem, destino in (('clientes-simples.xlsx', 'guimaraes-clientes-situacao-simples.xlsx'),
-                            ('fornecedores-simples.xlsx', 'guimaraes-fornecedores-situacao-simples.xlsx')):
+    for origem, destino in ((CLIENTES, 'guimaraes-clientes-situacao-simples.xlsx'),
+                            (FORNECEDORES, 'guimaraes-fornecedores-situacao-simples.xlsx')):
         wb = openpyxl.load_workbook(FONTES / origem)
-        ws = wb['Simples']
+        ws = wb['Situação']
         header = [c.value for c in ws[1]]
-        col_doc, col_obs = header.index('CNPJ') + 1, header.index('Observação') + 1
+        col_doc, col_tipo, col_obs = (header.index(h) + 1 for h in ('CNPJ / CPF', 'Tipo', 'Observação'))
         omitidos = 0
         for row in range(2, ws.max_row + 1):
             digitos = re.sub(r'\D', '', str(ws.cell(row, col_doc).value or ''))
-            obs = ws.cell(row, col_obs).value
-            if obs and digitos.startswith('000') and cpf_valido(digitos[3:]):
+            if ws.cell(row, col_tipo).value == 'PF':
                 ws.cell(row, col_doc).value = 'CPF omitido'
-                ws.cell(row, col_obs).value = 'Pessoa física (CPF): número omitido'
                 omitidos += 1
-            elif not obs and digitos.startswith('000') and cpf_valido(digitos[3:]) and int(digitos[8:12]) > 20:
+            elif cpf_aparente(digitos):
                 ws.cell(row, col_doc).value = 'CPF omitido'
                 ws.cell(row, col_obs).value = ('Pessoa física (CPF) completado com zeros: número omitido. A situação no Simples '
                                                'desta linha veio de uma empresa com a mesma raiz e não se aplica.')
@@ -284,8 +334,8 @@ def exportar_planilhas():
 
 if __name__ == '__main__':
     build_produtos()
-    build_simples('clientes-simples.xlsx', 'clientes-data.js', 'ClientesGuimaraes',
+    build_simples(CLIENTES, 'clientes-data.js', 'ClientesGuimaraes',
                   'Situação no Simples Nacional dos clientes da Guimarães (Receita Federal, dados abertos do CNPJ).')
-    build_simples('fornecedores-simples.xlsx', 'fornecedores-data.js', 'FornecedoresGuimaraes',
+    build_simples(FORNECEDORES, 'fornecedores-data.js', 'FornecedoresGuimaraes',
                   'Situação no Simples Nacional dos fornecedores da Guimarães (Receita Federal, dados abertos do CNPJ).')
     exportar_planilhas()

@@ -13,10 +13,12 @@
   const TRATAMENTO = Object.freeze({ geral: 1, reducao60: 0.4, zero: 0 });
   const PIS_COFINS_CREDITO = 9.25;
 
-  // Produtos da seção 13, valores por unidade (tabela Atacarejo Externo SC 2026).
+  // Produtos da seção 13, valores por unidade (tabela Atacarejo Externo SC 2026). O relatório mantém o valor
+  // líquido de tributos (R$ 4,39 e R$ 3,83) e chega ao preço com ICMS 12% e PIS/COFINS 9,25% por dentro
+  // (R$ 5,57 e R$ 4,86 arredondados).
   const PRODUTOS = Object.freeze({
-    desinfetante: Object.freeze({ nome: 'Desinfetante capim-limão 2L (cód. 1723)', preco: 5.5, ipi: 5, icms: 12, pisCofins: 8.14, frete: 0.55, comissao: 0.22, despesas: 0.55, cpv: 2.76, tratamento: 'geral' }),
-    agua: Object.freeze({ nome: 'Água sanitária 2L (cód. 586)', preco: 4.79, ipi: 0, icms: 12, pisCofins: 8.14, frete: 0.48, comissao: 0.19, despesas: 0.48, cpv: 1.61, tratamento: 'geral' })
+    desinfetante: Object.freeze({ nome: 'Desinfetante capim-limão 2L (cód. 1723)', preco: 4.39 / 0.7875, ipi: 5, icms: 12, pisCofins: 9.25, frete: 0.55, comissao: 0.22, despesas: 0.55, cpv: 2.76, tratamento: 'geral' }),
+    agua: Object.freeze({ nome: 'Água sanitária 2L (cód. 586)', preco: 3.83 / 0.7875, ipi: 0, icms: 12, pisCofins: 9.25, frete: 0.48, comissao: 0.19, despesas: 0.48, cpv: 1.61, tratamento: 'geral' })
   });
 
   // O que cada perfil de cliente consegue creditar da nota da Guimarães.

@@ -98,10 +98,10 @@
       resumo: 'Lançar as parcelas de 2027 a 2030 no planejamento e confirmar se há correção ou juros.',
       prazo: '2026-12-31',
       pronto: 'Fluxo de caixa com as parcelas lançadas',
-      porque: 'O ICMS postergado volta a ser pago entre jul/2027 e abr/2030: R$ 5,45 mi, com pico de R$ 2,12 mi em 2029. Somado aos tributos, o desembolso anual chega a R$ 8.194.364,49 em 2029, contra R$ 5.490.962,49 pagos nos últimos 12 meses.',
+      porque: 'O ICMS postergado volta a ser pago entre jul/2027 e abr/2030: R$ 5,45 mi, com pico de R$ 2,12 mi em 2029. Somado aos tributos, o desembolso anual chega a R$ 8.430.761,91 em 2029, contra R$ 5.490.962,49 pagos nos últimos 12 meses.',
       numeros: [
         { valor: 'R$ 5,45 mi', rotulo: 'parcelas nominais, jul/2027 a abr/2030' },
-        { valor: 'R$ 8.194.364,49', rotulo: 'maior desembolso anual projetado, em 2029' }
+        { valor: 'R$ 8.430.761,91', rotulo: 'maior desembolso anual projetado, em 2029' }
       ],
       passos: [
         { t: 'Lance no fluxo de caixa as parcelas de cada mês de 2027 a 2030', d: 'Totais por ano: 2027 R$ 979.176,55 · 2028 R$ 1.663.654,14 · 2029 R$ 2.119.936,88 · 2030 R$ 684.196,64. O valor de cada mês está na tabela da seção 8.' },
@@ -163,8 +163,8 @@
       depende: ['consulta-clientes'],
       relacionados: ['mapear-canal'],
       passos: [
-        { t: 'Entenda o que muda na nota', d: 'Hoje o ICMS (12%) e o PIS/COFINS (8,14%) estão dentro do preço e o IPI vai por fora. Em 2027, a CBS e o IBS (11,3%) entram por fora e o IPI é zerado.' },
-        { t: 'Escolha, para cada canal, a opção A ou a B', d: 'A · Manter a margem: a nota fica um pouco mais barata (desinfetante −5,0%; água sanitária −0,2%). B · Manter o total da nota: a diferença do IPI vira margem (no desinfetante, de R$ 0,31 para R$ 0,54 por unidade).' },
+        { t: 'Entenda o que muda na nota', d: 'Hoje o ICMS (12%) e o PIS/COFINS (9,25%) estão dentro do preço e o IPI vai por fora. Em 2027, a CBS e o IBS (11,3%) entram por fora e o IPI é zerado.' },
+        { t: 'Escolha, para cada canal, a opção A ou a B', d: 'A · Manter a margem: a nota fica um pouco mais barata (desinfetante −6,2%; água sanitária −1,7%). B · Manter o total da nota: a diferença do IPI vira margem (no desinfetante, de R$ 0,31 para R$ 0,61 por unidade).' },
         { t: 'Considere como cada canal compara o preço', d: 'Cliente fora do Simples compara pelo valor sem CBS/IBS: A ou B têm o mesmo efeito para ele, e quem decide é a margem da Guimarães. Cliente do Simples compara pelo total da nota: a consulta da seção 16 ajuda a decidir. Pessoa física compara pelo total da nota: política de preço própria.' },
         { t: 'Aprove a tabela de 2027' }
       ],
@@ -234,10 +234,10 @@
       prazo: null,
       prazoTexto: 'Contínuo',
       pronto: 'Despesas sem nota zeradas',
-      porque: 'Com a CBS e o IBS, despesas com nota que hoje não dão crédito passam a dar: R$ 8.722.312,73 de base por ano. A maior é a comissão de representantes (R$ 3.198.262,76), paga a pessoas jurídicas com NFS-e.',
+      porque: 'Com a CBS e o IBS, despesas com nota que hoje não dão crédito passam a dar: R$ 10.978.975,90 de base por ano. A maior é a comissão de representantes (R$ 3.198.262,76), paga a pessoas jurídicas com NFS-e.',
       numeros: [
-        { valor: 'R$ 8.722.312,73', rotulo: 'base anual de despesas que passam a dar crédito' },
-        { valor: 'R$ 985.621,34', rotulo: 'crédito em 2027 (R$ 2.529.470,69 em 2033)' }
+        { valor: 'R$ 10.978.975,90', rotulo: 'base anual de despesas que passam a dar crédito' },
+        { valor: 'R$ 1.229.645,30', rotulo: 'crédito em 2027 (R$ 3.172.924,04 em 2033)' }
       ],
       passos: [
         { t: 'Liste as despesas que passam a dar crédito', d: 'Comissões, merchandising, feiras, sistemas, manutenção de veículos e outras.' },

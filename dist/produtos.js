@@ -24,7 +24,7 @@
   const produtos = D.produtos.map(([codigo, descricao, ncm, opcoes, flags, imunidade]) => {
     const opts = opcoes.map((id) => D.opcoes[id]);
     const has = (f) => flags.includes(f);
-    const status = has('diag-agua') || has('diag-desinf') || has('diag-ncm') ? 'alta' : has('alternativa') || has('imunidade') ? 'media' : 'ok';
+    const status = has('diag-agua') || has('diag-desinf') || has('diag-ncm') || has('rev-ncm') || has('rev-agua') ? 'alta' : has('alternativa') || has('imunidade') ? 'media' : 'ok';
     const tipos = new Set(opts.filter((o) => o.cst !== '000').map((o) => (o.cst === '200' ? `200-${o.red}` : o.cst)));
     return {
       codigo, descricao, ncm, opts, flags, imunidade: imunidade || [], status, tipos,
@@ -57,10 +57,12 @@
     const list = [];
     const has = (f) => p.flags.includes(f);
     const alt = p.opts.filter((o) => o.cst !== '000');
+    const rev = D.revisao[p.codigo];
+    if (rev) list.push([has('rev-ncm') || has('rev-agua') ? 'revisao-alta' : 'revisao', `${T(rev[0])}${rev[1] ? ` (CST ${rev[1]} · cClassTrib ${rev[2]})` : ''}. ${T(rev[3])}`]);
     if (has('diag-agua')) list.push(['alta', 'Água sanitária vendida no NCM 2828.90.19: hoje sai na regra geral (cClassTrib 000001). O Anexo VIII dá redução de 60% à água sanitária classificada no 3808.94.19. A FISPQ define o NCM correto antes do ajuste no Sankhya.']);
     if (has('diag-desinf')) list.push(['alta', 'A consulta sugere redução de 60% (cClassTrib 200035) para o NCM 3808.94.19, mas o Anexo VIII nomeia só a água sanitária. Sem respaldo na descrição, a nota deve sair na regra geral, como apontado no diagnóstico.']);
     if (has('diag-ncm')) list.push(['alta', 'NCM provavelmente errado: o produto está no NCM de desinfetantes (3808.94.19) sem ser desinfetante. Corrigir o cadastro antes de definir o cClassTrib.']);
-    if (has('diag-interna')) list.push(['info', 'Água sanitária a granel de uso interno: segundo o diagnóstico, não é vendida e não afeta a nota.']);
+    if (has('diag-granel')) list.push(['info', 'Água sanitária a granel: também é vendida (R$ 1.007.119,28/ano) e já está no NCM 3808.94.19, que tem a redução de 60% do Anexo VIII.']);
     if (alt.length && !has('diag-desinf')) list.push(['media', `O NCM aparece em ${plural(alt.length, 'enquadramento', 'enquadramentos')} com tratamento diferente da regra geral. O benefício só vale se a descrição do produto corresponder à descrição da lei — compare abaixo.`]);
     if (has('imunidade')) list.push(['media', `A consulta aponta imunidade ou não incidência (ICMS/Constituição) para ${p.imunidade.map((i) => i[0]).filter((v, i, a) => a.indexOf(v) === i).join(', ')}. Confirmar se o produto pertence ao segmento indicado.`]);
     if (has('gtin')) list.push(['info', 'Se o enquadramento com redução for confirmado, a NF-e precisa informar o GTIN (cEAN e cEANTrib).']);
@@ -236,7 +238,7 @@
       <div class="detail-chips"><span class="tag ${s.tag}">${s.label}</span><span class="chip">Origem ${esc(D.meta.ufOrigem)} → ${esc(D.meta.ufDestino.join(', '))}</span></div>
       <div class="review ${reviewClass}">
         <h4>${p.status === 'ok' ? 'Sem pendência na consulta' : 'O que a equipe precisa confirmar'}</h4>
-        ${pend.length ? `<ul>${pend.map(([nivel, texto]) => `<li>${nivel === 'info' ? '<em>Observação:</em> ' : ''}${esc(texto)}</li>`).join('')}</ul>` : '<ul><li>A consulta devolve só a tributação integral (CST 000, cClassTrib 000001) para este NCM.</li></ul>'}
+        ${pend.length ? `<ul>${pend.map(([nivel, texto]) => `<li>${nivel === 'info' ? '<em>Observação:</em> ' : nivel.startsWith('revisao') ? '<em>Revisão das reduções (nov/2026):</em> ' : ''}${esc(texto)}</li>`).join('')}</ul>` : '<ul><li>A consulta devolve só a tributação integral (CST 000, cClassTrib 000001) para este NCM.</li></ul>'}
         <label for="rev-state">Situação da revisão (salva neste navegador)</label>
         <select class="select" id="rev-state">${REVISAO.map(([v, l]) => `<option value="${v}"${(revisao[p.codigo] || '') === v ? ' selected' : ''}>${l}</option>`).join('')}</select>
       </div>

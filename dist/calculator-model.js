@@ -6,11 +6,13 @@
     receitaGuimaraes: 11721736926,
     receitaGrupo: 12491018603,
     vendasCBSIBS: 9889177061,
-    comprasCBSIBS: 9027684243,
-    guimaraes: Object.freeze([647177188, 647177188, 607442761, 567708334, 527973907, 488239480, 249832917]),
-    grupo: Object.freeze([818923569, 818923569, 789502698, 760851109, 732199520, 703547930, 531638394]),
-    // CBS + IBS in basis points, following pages 3 and 13 of the report.
-    aliquotasIVA: Object.freeze([1130, 1130, 1307, 1484, 1661, 1838, 2900])
+    // Vendas menos a base de CBS/IBS da p. 12 (margem anual R$ 21.482.973,83 − crédito novo R$ 10.978.975,90).
+    comprasCBSIBS: 8838777268,
+    guimaraes: Object.freeze([667473277, 667473277, 631082503, 594691730, 558300956, 521910182, 303565540]),
+    grupo: Object.freeze([839219658, 839219658, 813142440, 787834505, 762526569, 737218632, 585371017]),
+    // CBS + IBS in basis points, following pages 12 and 13 of the report: CBS 11,2% every year,
+    // IBS treated as 0 in 2027–2028, then 10% to 40% of the 17,7% full rate and 17,7% in 2033.
+    aliquotasIVA: Object.freeze([1120, 1120, 1297, 1474, 1651, 1828, 2890])
   });
 
   const YEARS = Object.freeze([2027, 2028, 2029, 2030, 2031, 2032, 2033]);

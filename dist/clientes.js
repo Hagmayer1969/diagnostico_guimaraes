@@ -24,7 +24,7 @@
     ajuste: 0,
     estrategia: 'margem',
     mix: { ...MIX_PADRAO, ...(salvo.mix && typeof salvo.mix === 'object' ? salvo.mix : {}) },
-    custom: { ...{ preco: 10, ipi: 0, icms: 12, pisCofins: 8.14, cpv: 5, frete: 1, comissao: 0.4, despesas: 1 }, ...(salvo.custom || {}) }
+    custom: { ...{ preco: 10, ipi: 0, icms: 12, pisCofins: 9.25, cpv: 5, frete: 1, comissao: 0.4, despesas: 1 }, ...(salvo.custom || {}) }
   };
 
   function chips(container, items, atual, onPick) {
